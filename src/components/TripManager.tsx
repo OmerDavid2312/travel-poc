@@ -6,6 +6,7 @@ import { CreateTripDialog } from './CreateTripDialog';
 import { AddCityDialog } from './AddCityDialog';
 import { AddItemDialog } from './AddItemDialog';
 import { CSVImportDialog } from './CSVImportDialog';
+import { AddNotesDialog } from './AddNotesDialog';
 import { TripItem } from '@/types/trip';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -210,6 +211,7 @@ export function TripManager() {
         {/* Action Bar */}
         <div className="flex flex-wrap gap-4 mb-6">
           <AddCityDialog onAddCity={handleAddCity} />
+          <AddNotesDialog />
           <CSVImportDialog onImportCSV={handleCSVImport} />
           <Button variant="outline" onClick={() => window.location.reload()}>
             חזרה לטיולים

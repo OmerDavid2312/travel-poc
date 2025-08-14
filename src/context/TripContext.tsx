@@ -1,7 +1,7 @@
 // Trip state management context
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { Trip, CityStay, TripItem, BudgetSummary } from '@/types/trip';
+import { Trip, CityStay, TripItem, TripNote, BudgetSummary } from '@/types/trip';
 import { storageAdapter } from '@/storage/localStorage';
 import { calculateBudget } from '@/lib/budget';
 import { generateId } from '@/lib/utils';
@@ -31,6 +31,12 @@ interface TripContextType {
   updateItem: (cityId: string, itemId: string, updates: Partial<TripItem>) => Promise<void>;
   deleteItem: (cityId: string, itemId: string) => Promise<void>;
   toggleItemPaid: (cityId: string, itemId: string) => Promise<void>;
+
+  // Note operations
+  addNote: (note: Omit<TripNote, 'id' | 'createdAt'>) => Promise<void>;
+  updateNote: (noteId: string, updates: Partial<TripNote>) => Promise<void>;
+  deleteNote: (noteId: string) => Promise<void>;
+  toggleNoteCompleted: (noteId: string) => Promise<void>;
 }
 
 const TripContext = createContext<TripContextType | undefined>(undefined);
@@ -78,6 +84,7 @@ export function TripProvider({ children }: TripProviderProps) {
         endDate,
         currency,
         cities: [],
+        notes: [],
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString()
       };
@@ -107,7 +114,14 @@ export function TripProvider({ children }: TripProviderProps) {
       setLoading(true);
       const trip = await storageAdapter.getTrip(tripId);
       if (trip) {
-        setCurrentTrip(trip);
+        // Ensure backward compatibility - add notes array if it doesn't exist
+        const updatedTrip = { ...trip, notes: trip.notes || [] };
+        setCurrentTrip(updatedTrip);
+        
+        // Save the updated trip if notes were added for backward compatibility
+        if (!trip.notes) {
+          await storageAdapter.saveTrip(updatedTrip);
+        }
       } else {
         toast({
           title: "Trip not found",
@@ -170,7 +184,12 @@ export function TripProvider({ children }: TripProviderProps) {
   const loadAllTrips = async () => {
     try {
       const trips = await storageAdapter.listTrips();
-      setAllTrips(trips);
+      // Ensure backward compatibility - add notes array if it doesn't exist
+      const updatedTrips = trips.map(trip => ({
+        ...trip,
+        notes: trip.notes || []
+      }));
+      setAllTrips(updatedTrips);
     } catch (error) {
       console.error('Failed to load trips:', error);
     }
@@ -369,6 +388,100 @@ export function TripProvider({ children }: TripProviderProps) {
     }
   };
 
+  const addNote = async (note: Omit<TripNote, 'id' | 'createdAt'>) => {
+    if (!currentTrip) return;
+
+    try {
+      const newNote: TripNote = {
+        ...note,
+        id: generateId(),
+        createdAt: new Date().toISOString()
+      };
+
+      const updatedTrip = {
+        ...currentTrip,
+        notes: [...currentTrip.notes, newNote],
+        updatedAt: new Date().toISOString()
+      };
+
+      await storageAdapter.saveTrip(updatedTrip);
+      setCurrentTrip(updatedTrip);
+      
+      toast({
+        title: "הערה נוספה",
+        description: `${note.title} נוספה בהצלחה.`
+      });
+    } catch (error) {
+      console.error('Failed to add note:', error);
+      toast({
+        title: "שגיאה",
+        description: "הוספת ההערה נכשלה. נסה שוב.",
+        variant: "destructive"
+      });
+    }
+  };
+
+  const updateNote = async (noteId: string, updates: Partial<TripNote>) => {
+    if (!currentTrip) return;
+
+    try {
+      const updatedTrip = {
+        ...currentTrip,
+        notes: currentTrip.notes.map(note =>
+          note.id === noteId ? { ...note, ...updates } : note
+        ),
+        updatedAt: new Date().toISOString()
+      };
+
+      await storageAdapter.saveTrip(updatedTrip);
+      setCurrentTrip(updatedTrip);
+    } catch (error) {
+      console.error('Failed to update note:', error);
+      toast({
+        title: "שגיאה",
+        description: "עדכון ההערה נכשל. נסה שוב.",
+        variant: "destructive"
+      });
+    }
+  };
+
+  const deleteNote = async (noteId: string) => {
+    if (!currentTrip) return;
+
+    try {
+      const updatedTrip = {
+        ...currentTrip,
+        notes: currentTrip.notes.filter(note => note.id !== noteId),
+        updatedAt: new Date().toISOString()
+      };
+
+      await storageAdapter.saveTrip(updatedTrip);
+      setCurrentTrip(updatedTrip);
+      
+      toast({
+        title: "הערה נמחקה",
+        description: "ההערה הוסרה בהצלחה."
+      });
+    } catch (error) {
+      console.error('Failed to delete note:', error);
+      toast({
+        title: "שגיאה",
+        description: "מחיקת ההערה נכשלה. נסה שוב.",
+        variant: "destructive"
+      });
+    }
+  };
+
+  const toggleNoteCompleted = async (noteId: string) => {
+    if (!currentTrip) return;
+
+    const note = currentTrip.notes.find(n => n.id === noteId);
+    
+    if (note) {
+      await updateNote(noteId, { completed: !note.completed });
+    }
+  };
+
   const value: TripContextType = {
     currentTrip,
     budget,
@@ -385,7 +498,11 @@ export function TripProvider({ children }: TripProviderProps) {
     addItem,
     updateItem,
     deleteItem,
-    toggleItemPaid
+    toggleItemPaid,
+    addNote,
+    updateNote,
+    deleteNote,
+    toggleNoteCompleted
   };
 
   return (

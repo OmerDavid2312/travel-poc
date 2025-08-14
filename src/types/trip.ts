@@ -7,6 +7,7 @@ export interface Trip {
   endDate: string;   // ISO date string
   currency: string;  // e.g., "USD", "EUR"
   cities: CityStay[];
+  notes: TripNote[];
   createdAt: string;
   updatedAt: string;
 }
@@ -26,6 +27,14 @@ export interface CityStay {
 }
 
 export type TripItemType = 'flight' | 'hotel' | 'activity';
+
+export interface TripNote {
+  id: string;
+  title: string;
+  description?: string;
+  completed: boolean;
+  createdAt: string;
+}
 
 export interface TripItem {
   id: string;
