@@ -1,0 +1,13 @@
+city,type,title,provider,dateFrom,dateTo,price,paid
+Paris,flight,Flight to Paris,Air France,2024-04-15,2024-04-15,450,true
+Paris,hotel,Hotel du Louvre,Marriott,2024-04-15,2024-04-19,750,false
+Paris,activity,Louvre Museum Visit,Paris Tourism,2024-04-16,,25,false
+Paris,activity,Eiffel Tower Tour,City Tours Paris,2024-04-17,,35,true
+London,flight,Eurostar to London,Eurostar,2024-04-19,2024-04-19,180,true
+London,hotel,The Savoy,Savoy Group,2024-04-19,2024-04-22,900,false
+London,activity,British Museum,British Museum,2024-04-20,,20,false
+London,activity,Tower of London,Historic Royal Palaces,2024-04-21,,30,false
+Amsterdam,flight,Flight to Amsterdam,KLM,2024-04-22,2024-04-22,160,false
+Amsterdam,hotel,NH Collection Amsterdam,NH Hotels,2024-04-22,2024-04-25,480,false
+Amsterdam,activity,Van Gogh Museum,Van Gogh Museum,2024-04-23,,22,false
+Amsterdam,activity,Canal Cruise,Amsterdam Canal Cruises,2024-04-23,,18,false

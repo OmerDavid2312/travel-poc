@@ -1,0 +1,199 @@
+{
+  "id": "trip-example-2024",
+  "title": "European Adventure 2024",
+  "startDate": "2024-04-15T00:00:00Z",
+  "endDate": "2024-04-25T00:00:00Z",
+  "currency": "EUR",
+  "createdAt": "2024-01-15T10:00:00Z",
+  "updatedAt": "2024-01-15T15:30:00Z",
+  "cities": [
+    {
+      "id": "city-paris-001",
+      "name": "Paris",
+      "startDate": "2024-04-15T00:00:00Z",
+      "endDate": "2024-04-19T00:00:00Z",
+      "weather": {
+        "temperature": 18,
+        "condition": "Partly Cloudy",
+        "icon": "⛅"
+      },
+      "items": [
+        {
+          "id": "item-flight-001",
+          "type": "flight",
+          "title": "Flight to Paris",
+          "provider": "Air France",
+          "dateFrom": "2024-04-15T08:00:00Z",
+          "dateTo": "2024-04-15T09:30:00Z",
+          "price": 450,
+          "paid": true,
+          "flightNumber": "AF-1234"
+        },
+        {
+          "id": "item-hotel-001",
+          "type": "hotel",
+          "title": "Hotel du Louvre",
+          "provider": "Marriott",
+          "dateFrom": "2024-04-15T15:00:00Z",
+          "dateTo": "2024-04-19T11:00:00Z",
+          "price": 750,
+          "paid": false,
+          "name": "Hotel du Louvre"
+        },
+        {
+          "id": "item-activity-001",
+          "type": "activity",
+          "title": "Louvre Museum Visit",
+          "provider": "Paris Tourism",
+          "dateFrom": "2024-04-16T10:00:00Z",
+          "price": 25,
+          "paid": false
+        },
+        {
+          "id": "item-activity-002",
+          "type": "activity",
+          "title": "Eiffel Tower Tour",
+          "provider": "City Tours Paris",
+          "dateFrom": "2024-04-17T14:00:00Z",
+          "price": 35,
+          "paid": true
+        },
+        {
+          "id": "item-activity-003",
+          "type": "activity",
+          "title": "Seine River Cruise",
+          "provider": "Bateaux Parisiens",
+          "dateFrom": "2024-04-18T19:00:00Z",
+          "price": 45,
+          "paid": false
+        }
+      ]
+    },
+    {
+      "id": "city-london-001",
+      "name": "London",
+      "startDate": "2024-04-19T00:00:00Z",
+      "endDate": "2024-04-22T00:00:00Z",
+      "weather": {
+        "temperature": 15,
+        "condition": "Cloudy",
+        "icon": "☁️"
+      },
+      "items": [
+        {
+          "id": "item-flight-002",
+          "type": "flight",
+          "title": "Eurostar to London",
+          "provider": "Eurostar",
+          "dateFrom": "2024-04-19T13:00:00Z",
+          "dateTo": "2024-04-19T15:30:00Z",
+          "price": 180,
+          "paid": true,
+          "flightNumber": "ES-9842"
+        },
+        {
+          "id": "item-hotel-002",
+          "type": "hotel",
+          "title": "The Savoy",
+          "provider": "Savoy Group",
+          "dateFrom": "2024-04-19T16:00:00Z",
+          "dateTo": "2024-04-22T11:00:00Z",
+          "price": 900,
+          "paid": false,
+          "name": "The Savoy"
+        },
+        {
+          "id": "item-activity-004",
+          "type": "activity",
+          "title": "British Museum",
+          "provider": "British Museum",
+          "dateFrom": "2024-04-20T10:00:00Z",
+          "price": 20,
+          "paid": false
+        },
+        {
+          "id": "item-activity-005",
+          "type": "activity",
+          "title": "Tower of London",
+          "provider": "Historic Royal Palaces",
+          "dateFrom": "2024-04-21T11:00:00Z",
+          "price": 30,
+          "paid": false
+        },
+        {
+          "id": "item-activity-006",
+          "type": "activity",
+          "title": "West End Show",
+          "provider": "Theatre Booking",
+          "dateFrom": "2024-04-21T19:30:00Z",
+          "price": 85,
+          "paid": true
+        }
+      ]
+    },
+    {
+      "id": "city-amsterdam-001",
+      "name": "Amsterdam",
+      "startDate": "2024-04-22T00:00:00Z",
+      "endDate": "2024-04-25T00:00:00Z",
+      "weather": {
+        "temperature": 16,
+        "condition": "Sunny",
+        "icon": "☀️"
+      },
+      "items": [
+        {
+          "id": "item-flight-003",
+          "type": "flight",
+          "title": "Flight to Amsterdam",
+          "provider": "KLM",
+          "dateFrom": "2024-04-22T10:30:00Z",
+          "dateTo": "2024-04-22T11:45:00Z",
+          "price": 160,
+          "paid": false,
+          "flightNumber": "KL-1023"
+        },
+        {
+          "id": "item-hotel-003",
+          "type": "hotel",
+          "title": "NH Collection Amsterdam",
+          "provider": "NH Hotels",
+          "dateFrom": "2024-04-22T15:00:00Z",
+          "dateTo": "2024-04-25T11:00:00Z",
+          "price": 480,
+          "paid": false,
+          "name": "NH Collection Amsterdam"
+        },
+        {
+          "id": "item-activity-007",
+          "type": "activity",
+          "title": "Van Gogh Museum",
+          "provider": "Van Gogh Museum",
+          "dateFrom": "2024-04-23T10:00:00Z",
+          "price": 22,
+          "paid": false
+        },
+        {
+          "id": "item-activity-008",
+          "type": "activity",
+          "title": "Canal Cruise",
+          "provider": "Amsterdam Canal Cruises",
+          "dateFrom": "2024-04-23T15:00:00Z",
+          "price": 18,
+          "paid": false
+        },
+        {
+          "id": "item-flight-004",
+          "type": "flight",
+          "title": "Return Flight Home",
+          "provider": "KLM",
+          "dateFrom": "2024-04-25T14:00:00Z",
+          "dateTo": "2024-04-25T18:30:00Z",
+          "price": 520,
+          "paid": true,
+          "flightNumber": "KL-2156"
+        }
+      ]
+    }
+  ]
+}

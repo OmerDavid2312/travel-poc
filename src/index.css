@@ -1,0 +1,243 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Trip Manager Design System - Travel-focused color palette */
+
+@layer base {
+  :root {
+    /* Base colors */
+    --background: 0 0% 100%;
+    --foreground: 215 25% 27%;
+
+    /* Card and surface colors */
+    --card: 0 0% 100%;
+    --card-foreground: 215 25% 27%;
+    --card-elevated: 210 20% 98%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 215 25% 27%;
+
+    /* Brand colors - Ocean blue theme for travel */
+    --primary: 207 90% 54%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 207 100% 75%;
+
+    --secondary: 210 17% 98%;
+    --secondary-foreground: 215 25% 27%;
+
+    --muted: 210 17% 98%;
+    --muted-foreground: 215 13% 65%;
+
+    --accent: 142 86% 28%;
+    --accent-foreground: 0 0% 100%;
+
+    /* Status colors */
+    --success: 142 86% 28%;
+    --success-foreground: 0 0% 100%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Border and input */
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 207 90% 54%;
+
+    /* Layout */
+    --radius: 0.5rem;
+
+    /* Trip-specific colors */
+    --flight: 220 100% 50%;
+    --flight-foreground: 0 0% 100%;
+    --hotel: 280 100% 70%;
+    --hotel-foreground: 0 0% 100%;
+    --activity: 32 95% 44%;
+    --activity-foreground: 0 0% 100%;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
+    --gradient-card: linear-gradient(145deg, hsl(var(--card)), hsl(var(--card-elevated)));
+    --gradient-hero: linear-gradient(135deg, hsl(207 90% 54%), hsl(142 86% 28%));
+
+    /* Shadows */
+    --shadow-elegant: 0 10px 30px -10px hsl(var(--primary) / 0.2);
+    --shadow-card: 0 4px 6px -1px hsl(215 25% 27% / 0.1);
+
+    /* Animation */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    /* Base colors */
+    --background: 215 28% 17%;
+    --foreground: 210 20% 98%;
+
+    /* Card and surface colors */
+    --card: 215 28% 17%;
+    --card-foreground: 210 20% 98%;
+    --card-elevated: 215 25% 20%;
+
+    --popover: 215 28% 17%;
+    --popover-foreground: 210 20% 98%;
+
+    /* Brand colors - Ocean blue theme for travel */
+    --primary: 207 100% 75%;
+    --primary-foreground: 215 28% 17%;
+    --primary-glow: 207 100% 85%;
+
+    --secondary: 215 25% 27%;
+    --secondary-foreground: 210 20% 98%;
+
+    --muted: 215 25% 27%;
+    --muted-foreground: 215 20% 65%;
+
+    --accent: 142 86% 28%;
+    --accent-foreground: 210 20% 98%;
+
+    /* Status colors */
+    --success: 142 86% 28%;
+    --success-foreground: 210 20% 98%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 215 28% 17%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 20% 98%;
+
+    /* Border and input */
+    --border: 215 25% 27%;
+    --input: 215 25% 27%;
+    --ring: 207 100% 75%;
+
+    /* Trip-specific colors */
+    --flight: 220 100% 70%;
+    --flight-foreground: 215 28% 17%;
+    --hotel: 280 100% 80%;
+    --hotel-foreground: 215 28% 17%;
+    --activity: 32 95% 60%;
+    --activity-foreground: 215 28% 17%;
+
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  /* RTL support for Hebrew */
+  [dir="rtl"] {
+    direction: rtl;
+    text-align: right;
+  }
+
+  [dir="rtl"] .text-left {
+    text-align: right;
+  }
+
+  [dir="rtl"] .text-right {
+    text-align: left;
+  }
+
+  /* RTL flexbox adjustments */
+  [dir="rtl"] .flex-row {
+    flex-direction: row-reverse;
+  }
+
+  [dir="rtl"] .justify-end {
+    justify-content: flex-start;
+  }
+
+  [dir="rtl"] .justify-start {
+    justify-content: flex-end;
+  }
+
+  /* RTL margin and padding adjustments */
+  [dir="rtl"] .ml-auto {
+    margin-left: auto;
+    margin-right: 0;
+  }
+
+  [dir="rtl"] .mr-auto {
+    margin-left: 0;
+    margin-right: auto;
+  }
+
+  /* RTL border radius adjustments */
+  [dir="rtl"] .rounded-l {
+    border-top-right-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  [dir="rtl"] .rounded-r {
+    border-top-left-radius: 0.25rem;
+    border-bottom-left-radius: 0.25rem;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  /* RTL specific adjustments for icons and flex layouts */
+  [dir="rtl"] .flex-row-reverse {
+    flex-direction: row;
+  }
+
+  /* RTL text alignment for specific elements */
+  [dir="rtl"] .text-center {
+    text-align: center;
+  }
+
+  /* RTL gap adjustments */
+  [dir="rtl"] .gap-2 > * + * {
+    margin-right: 0.5rem;
+    margin-left: 0;
+  }
+
+  [dir="rtl"] .gap-3 > * + * {
+    margin-right: 0.75rem;
+    margin-left: 0;
+  }
+
+  [dir="rtl"] .gap-4 > * + * {
+    margin-right: 1rem;
+    margin-left: 0;
+  }
+
+  /* RTL specific spacing adjustments */
+  [dir="rtl"] .space-x-2 > * + * {
+    margin-right: 0.5rem;
+    margin-left: 0;
+  }
+
+  [dir="rtl"] .space-x-3 > * + * {
+    margin-right: 0.75rem;
+    margin-left: 0;
+  }
+
+  /* Hebrew font support */
+  [dir="rtl"] {
+    font-family: 'Segoe UI', 'David', 'Narkisim', 'Arial', sans-serif;
+  }
+}
