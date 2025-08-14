@@ -53,6 +53,18 @@ export function ItemCard({ item, currency, onEdit, onDelete, onTogglePaid }: Ite
               טיסה: {item.flightNumber}
             </div>
           )}
+          
+          {item.bookingReference && (
+            <div className="text-xs text-muted-foreground">
+              אסמכתא: {item.bookingReference}
+            </div>
+          )}
+          
+          {item.note && (
+            <div className="text-xs text-muted-foreground mt-1 line-clamp-2">
+              {item.note}
+            </div>
+          )}
         </div>
         
         <div className="flex items-center gap-3">

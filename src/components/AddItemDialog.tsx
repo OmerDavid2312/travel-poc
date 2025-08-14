@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Checkbox } from '@/components/ui/checkbox';
+import { Textarea } from '@/components/ui/textarea';
 import { TripItem, TripItemType } from '@/types/trip';
 
 interface AddItemDialogProps {
@@ -22,6 +23,8 @@ export function AddItemDialog({ open, onOpenChange, onAddItem, editItem }: AddIt
   const [dateTo, setDateTo] = useState(editItem?.dateTo?.split('T')[0] || '');
   const [price, setPrice] = useState(editItem?.price?.toString() || '');
   const [paid, setPaid] = useState(editItem?.paid || false);
+  const [bookingReference, setBookingReference] = useState(editItem?.bookingReference || '');
+  const [note, setNote] = useState(editItem?.note || '');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,7 +45,9 @@ export function AddItemDialog({ open, onOpenChange, onAddItem, editItem }: AddIt
       dateFrom: new Date(dateFrom).toISOString(),
       dateTo: dateTo ? new Date(dateTo).toISOString() : undefined,
       price: priceNum,
-      paid
+      paid,
+      bookingReference: bookingReference.trim() || undefined,
+      note: note.trim() || undefined
     };
 
     // Add type-specific properties
@@ -64,6 +69,8 @@ export function AddItemDialog({ open, onOpenChange, onAddItem, editItem }: AddIt
     setDateTo('');
     setPrice('');
     setPaid(false);
+    setBookingReference('');
+    setNote('');
     onOpenChange(false);
   };
 
@@ -161,6 +168,32 @@ export function AddItemDialog({ open, onOpenChange, onAddItem, editItem }: AddIt
               value={price}
               onChange={(e) => setPrice(e.target.value)}
               required
+            />
+          </div>
+          
+          {(type === 'flight' || type === 'hotel') && (
+            <div className="space-y-2">
+              <Label htmlFor="bookingReference">אסמכתא הזמנה (אופציונלי)</Label>
+              <Input
+                id="bookingReference"
+                placeholder={
+                  type === 'flight' ? 'לדוגמה: ABC123, PNR: XYZ789' :
+                  'לדוגמה: CNF123456, אסמכתא: AB789CD'
+                }
+                value={bookingReference}
+                onChange={(e) => setBookingReference(e.target.value)}
+              />
+            </div>
+          )}
+          
+          <div className="space-y-2">
+            <Label htmlFor="note">הערות (אופציונלי)</Label>
+            <Textarea
+              id="note"
+              placeholder="הוסף הערות נוספות על הפריט..."
+              value={note}
+              onChange={(e) => setNote(e.target.value)}
+              rows={3}
             />
           </div>
           

@@ -48,6 +48,9 @@ export interface TripItem {
   // Type-specific properties
   flightNumber?: string; // for flights
   name?: string;         // for hotels
+  // Additional optional properties
+  bookingReference?: string; // Found on airline tickets, hotel confirmations, or travel agency documents, often labeled as a booking reference, record locator, or PNR code (for hotel/expense/flight)
+  note?: string;             // User notes about the trip item
 }
 
 export interface BudgetSummary {
