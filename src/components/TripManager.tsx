@@ -23,6 +23,7 @@ export function TripManager() {
     createTrip,
     loadTrip,
     addCity,
+    deleteCity,
     addItem,
     updateItem,
     deleteItem,
@@ -68,6 +69,10 @@ export function TripManager() {
 
   const handleTogglePaid = async (cityId: string, itemId: string) => {
     await toggleItemPaid(cityId, itemId);
+  };
+
+  const handleDeleteCity = async (cityId: string) => {
+    await deleteCity(cityId);
   };
 
   const handleCSVImport = async (csvContent: string) => {
@@ -239,6 +244,7 @@ export function TripManager() {
                   onEditItem={handleEditItem}
                   onDeleteItem={handleDeleteItem}
                   onTogglePaid={handleTogglePaid}
+                  onDeleteCity={handleDeleteCity}
                 />
               ))
             )}

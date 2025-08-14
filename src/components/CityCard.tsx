@@ -1,11 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { CityStay, TripItem } from '@/types/trip';
 import { formatDateRange, formatCurrency } from '@/lib/utils';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ItemCard } from './ItemCard';
-import { MapPin, Plus, Thermometer } from 'lucide-react';
+import { 
+  AlertDialog, 
+  AlertDialogAction, 
+  AlertDialogCancel, 
+  AlertDialogContent, 
+  AlertDialogDescription, 
+  AlertDialogFooter, 
+  AlertDialogHeader, 
+  AlertDialogTitle, 
+  AlertDialogTrigger 
+} from '@/components/ui/alert-dialog';
+import { MapPin, Plus, Trash2 } from 'lucide-react';
 
 interface CityCardProps {
   city: CityStay;
@@ -14,6 +25,7 @@ interface CityCardProps {
   onEditItem: (cityId: string, item: TripItem) => void;
   onDeleteItem: (cityId: string, itemId: string) => void;
   onTogglePaid: (cityId: string, itemId: string) => void;
+  onDeleteCity: (cityId: string) => void;
 }
 
 export function CityCard({ 
@@ -22,7 +34,8 @@ export function CityCard({
   onAddItem, 
   onEditItem, 
   onDeleteItem, 
-  onTogglePaid 
+  onTogglePaid,
+  onDeleteCity 
 }: CityCardProps) {
   const totalPlanned = city.items.reduce((sum, item) => sum + item.price, 0);
   const totalPaid = city.items.reduce((sum, item) => sum + (item.paid ? item.price : 0), 0);
@@ -58,14 +71,45 @@ export function CityCard({
           </div>
         </div>
         
-        <Button 
-          size="sm" 
-          onClick={() => onAddItem(city.id)}
-          className="shrink-0"
-        >
-          <Plus className="h-4 w-4" />
-          הוסף פריט
-        </Button>
+        <div className="flex gap-2 shrink-0">
+          <Button 
+            size="sm" 
+            onClick={() => onAddItem(city.id)}
+          >
+            <Plus className="h-4 w-4" />
+            הוסף פריט
+          </Button>
+          
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button 
+                size="sm" 
+                variant="outline"
+                className="hover:bg-destructive/10 hover:text-destructive hover:border-destructive"
+              >
+                <Trash2 className="h-4 w-4" />
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>מחק עיר</AlertDialogTitle>
+                <AlertDialogDescription>
+                  האם אתה בטוח שברצונך למחוק את העיר "{city.name}"? 
+                  פעולה זו תמחק גם את כל הפריטים ({city.items.length}) הקשורים לעיר זו ולא ניתן לבטלה.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>ביטול</AlertDialogCancel>
+                <AlertDialogAction 
+                  onClick={() => onDeleteCity(city.id)}
+                  className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                >
+                  מחק עיר
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+        </div>
       </div>
 
       {/* Items by category */}
