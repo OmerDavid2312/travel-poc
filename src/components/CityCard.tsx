@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { CityStay, TripItem } from '@/types/trip';
 import { formatDateRange, formatCurrency } from '@/lib/utils';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ItemCard } from './ItemCard';
+import { WeatherCard } from './WeatherCard';
+import { fetchWeatherData } from '@/lib/weather';
 import { 
   AlertDialog, 
   AlertDialogAction, 
@@ -21,6 +23,7 @@ import { MapPin, Plus, Trash2 } from 'lucide-react';
 interface CityCardProps {
   city: CityStay;
   currency: string;
+  tripName: string;
   onAddItem: (cityId: string) => void;
   onEditItem: (cityId: string, item: TripItem) => void;
   onDeleteItem: (cityId: string, itemId: string) => void;
@@ -31,14 +34,37 @@ interface CityCardProps {
 export function CityCard({ 
   city, 
   currency, 
+  tripName,
   onAddItem, 
   onEditItem, 
   onDeleteItem, 
   onTogglePaid,
   onDeleteCity 
 }: CityCardProps) {
+  const [weatherData, setWeatherData] = useState(city.weather);
+  const [isLoadingWeather, setIsLoadingWeather] = useState(false);
+
   const totalPlanned = city.items.reduce((sum, item) => sum + item.price, 0);
   const totalPaid = city.items.reduce((sum, item) => sum + (item.paid ? item.price : 0), 0);
+
+  // Load weather data when component mounts
+  useEffect(() => {
+    const loadWeather = async () => {
+      if (!city.weather) {
+        setIsLoadingWeather(true);
+        try {
+          const weather = await fetchWeatherData(city.name, tripName, city.startDate, city.endDate);
+          setWeatherData(weather);
+        } catch (error) {
+          console.error('Failed to load weather:', error);
+        } finally {
+          setIsLoadingWeather(false);
+        }
+      }
+    };
+
+    loadWeather();
+  }, [city.name, tripName, city.startDate, city.endDate, city.weather]);
   
   const groupedItems = {
     flight: city.items.filter(item => item.type === 'flight'),
@@ -53,14 +79,23 @@ export function CityCard({
           <div className="flex items-center gap-3 mb-2">
             <MapPin className="h-5 w-5 text-primary" />
             <h3 className="text-xl font-semibold">{city.name}</h3>
-            {city.weather && (
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <span>{city.weather.icon}</span>
-                <span>{city.weather.temperature}°C</span>
-                <span>{city.weather.condition}</span>
-              </div>
-            )}
           </div>
+          
+          {/* Weather Card */}
+          {(weatherData || isLoadingWeather) && (
+            <div className="mb-4">
+              {isLoadingWeather ? (
+                <div className="bg-gradient-to-br from-purple-50 to-blue-50 border-purple-200 p-4 rounded-lg">
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-purple-600"></div>
+                    <span className="text-sm text-purple-600">טוען תחזית מזג אוויר...</span>
+                  </div>
+                </div>
+              ) : weatherData ? (
+                <WeatherCard weather={weatherData} />
+              ) : null}
+            </div>
+          )}
           <div className="text-sm text-muted-foreground mb-3">
             {formatDateRange(city.startDate, city.endDate)}
           </div>

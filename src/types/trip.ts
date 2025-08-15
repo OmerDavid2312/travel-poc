@@ -18,12 +18,14 @@ export interface CityStay {
   startDate: string; // ISO date string
   endDate: string;   // ISO date string
   items: TripItem[];
-  // Mock weather data - TODO: Replace with weather API integration
-  weather?: {
-    temperature: number;
-    condition: string;
-    icon: string;
-  };
+      // Weather data from AI API
+    weather?: {
+      icon: string;
+      temperature: number;
+      condition: string;
+      forecast: string;
+      summary?: string;
+    };
 }
 
 export type TripItemType = 'flight' | 'hotel' | 'activity';

@@ -205,11 +205,7 @@ export function TripProvider({ children }: TripProviderProps) {
         startDate,
         endDate,
         items: [],
-        weather: {
-          temperature: Math.floor(Math.random() * 25) + 10,
-          condition: ['Sunny', 'Cloudy', 'Partly Cloudy'][Math.floor(Math.random() * 3)],
-          icon: ['☀️', '☁️', '⛅'][Math.floor(Math.random() * 3)]
-        }
+        weather: null
       };
 
       const updatedTrip = {

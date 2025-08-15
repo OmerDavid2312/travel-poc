@@ -240,6 +240,7 @@ export function TripManager() {
                   key={city.id}
                   city={city}
                   currency={currentTrip.currency}
+                  tripName={currentTrip.title}
                   onAddItem={handleAddItemClick}
                   onEditItem={handleEditItem}
                   onDeleteItem={handleDeleteItem}
