@@ -50,6 +50,7 @@ export interface TripItem {
   name?: string;         // for hotels
   // Additional optional properties
   bookingReference?: string; // Found on airline tickets, hotel confirmations, or travel agency documents, often labeled as a booking reference, record locator, or PNR code (for hotel/expense/flight)
+  bookingSource?: string;    // The platform or service used to book the item (e.g., Booking.com, Expedia, airline website)
   note?: string;             // User notes about the trip item
 }
 

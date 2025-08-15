@@ -24,6 +24,7 @@ export function AddItemDialog({ open, onOpenChange, onAddItem, editItem }: AddIt
   const [price, setPrice] = useState(editItem?.price?.toString() || '');
   const [paid, setPaid] = useState(editItem?.paid || false);
   const [bookingReference, setBookingReference] = useState(editItem?.bookingReference || '');
+  const [bookingSource, setBookingSource] = useState(editItem?.bookingSource || '');
   const [note, setNote] = useState(editItem?.note || '');
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -47,6 +48,7 @@ export function AddItemDialog({ open, onOpenChange, onAddItem, editItem }: AddIt
       price: priceNum,
       paid,
       bookingReference: bookingReference.trim() || undefined,
+      bookingSource: bookingSource.trim() || undefined,
       note: note.trim() || undefined
     };
 
@@ -70,6 +72,7 @@ export function AddItemDialog({ open, onOpenChange, onAddItem, editItem }: AddIt
     setPrice('');
     setPaid(false);
     setBookingReference('');
+    setBookingSource('');
     setNote('');
     onOpenChange(false);
   };
@@ -185,6 +188,20 @@ export function AddItemDialog({ open, onOpenChange, onAddItem, editItem }: AddIt
               />
             </div>
           )}
+          
+          <div className="space-y-2">
+            <Label htmlFor="bookingSource">מקור ההזמנה (אופציונלי)</Label>
+            <Input
+              id="bookingSource"
+              placeholder={
+                type === 'flight' ? 'לדוגמה: אתר אל על, Expedia' :
+                type === 'hotel' ? 'לדוגמה: Booking.com, Agoda' :
+                'לדוגמה: Viator, סוכן מקומי'
+              }
+              value={bookingSource}
+              onChange={(e) => setBookingSource(e.target.value)}
+            />
+          </div>
           
           <div className="space-y-2">
             <Label htmlFor="note">הערות (אופציונלי)</Label>
