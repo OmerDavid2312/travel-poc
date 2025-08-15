@@ -12,7 +12,7 @@ import { TripItem } from '@/types/trip';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { parseCSV, importCSVToTrip } from '@/lib/csvParser';
-import { Plane, MapPin, Building } from 'lucide-react';
+import { Plane, MapPin, Building, Hotel } from 'lucide-react';
 import heroImage from '@/assets/hero-travel.jpg';
 
 export function TripManager() {
@@ -263,11 +263,18 @@ export function TripManager() {
                 <div className="space-y-2">
                   {unpaidItems.slice(0, 5).map(item => (
                     <div key={`${item.cityId}-${item.id}`} className="flex justify-between items-center text-sm">
-                      <div className="truncate">
-                        <div className="font-medium">{item.title}</div>
-                        <div className="text-muted-foreground">{item.cityName}</div>
+                      <div className="flex items-center gap-2 flex-1 min-w-0">
+                        <div className="flex-shrink-0">
+                          {item.type === 'hotel' && <Hotel className="h-4 w-4 text-blue-600" />}
+                          {item.type === 'flight' && <Plane className="h-4 w-4 text-purple-600" />}
+                          {item.type === 'activity' && <MapPin className="h-4 w-4 text-green-600" />}
+                        </div>
+                        <div className="truncate">
+                          <div className="font-medium">{item.title}</div>
+                          <div className="text-muted-foreground">{item.cityName}</div>
+                        </div>
                       </div>
-                      <div className="text-warning font-medium">
+                      <div className="text-warning font-medium flex-shrink-0">
                         {new Intl.NumberFormat('he-IL', {
                           style: 'currency',
                           currency: currentTrip.currency,
