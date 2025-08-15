@@ -50,7 +50,7 @@ export function TripPlanCard({ tripPlan }: TripPlanCardProps) {
             onClick={() => setIsExpanded(!isExpanded)}
             className="w-full justify-between text-green-700 hover:text-green-800 hover:bg-green-50"
           >
-            <span className="text-sm">תכנון מפורט מ-AI</span>
+            <span style={{direction:'rtl'}} className="text-sm">תכנון מפורט מ-AI</span>
             {isExpanded ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
           </Button>
 

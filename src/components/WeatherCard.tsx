@@ -50,7 +50,7 @@ export function WeatherCard({ weather }: WeatherCardProps) {
             onClick={() => setIsExpanded(!isExpanded)}
             className="w-full justify-between text-purple-700 hover:text-purple-800 hover:bg-purple-50"
           >
-            <span className="text-sm">תחזית מפורטת מ-AI</span>
+            <span style={{direction:'rtl'}} className="text-sm">תחזית מפורטת מ-AI</span>
             {isExpanded ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
           </Button>
 
