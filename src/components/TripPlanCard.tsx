@@ -18,7 +18,7 @@ export function TripPlanCard({ tripPlan }: TripPlanCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
-    <Card className="w-full bg-gradient-to-br from-green-50 to-emerald-50 border-green-200 p-4 space-y-3">
+    <Card style={{direction:'ltr'}} className="w-full bg-gradient-to-br from-green-50 to-emerald-50 border-green-200 p-4 space-y-3">
       {/* AI Badge */}
       <div className="flex items-center gap-2">
         <Badge variant="secondary" className="bg-green-100 text-green-700 border-green-200">
