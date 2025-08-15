@@ -151,7 +151,7 @@ export function CityCard({
                 <div className="bg-gradient-to-br from-purple-50 to-blue-50 border-purple-200 p-4 rounded-lg">
                   <div className="flex items-center gap-2 mb-2">
                     <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-purple-600"></div>
-                    <span className="text-sm text-purple-600">טוען תחזית מזג אוויר...</span>
+                    <span className="text-sm text-purple-600">טוען תחזית מזג אוויר מ-AI...</span>
                   </div>
                 </div>
               ) : weatherData ? (
@@ -167,7 +167,7 @@ export function CityCard({
                 <div className="bg-gradient-to-br from-green-50 to-emerald-50 border-green-200 p-4 rounded-lg">
                   <div className="flex items-center gap-2 mb-2">
                     <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-green-600"></div>
-                    <span className="text-sm text-green-600">טוען תכנון טיול...</span>
+                    <span className="text-sm text-green-600">טוען תכנון טיול מ-AI...</span>
                   </div>
                 </div>
               ) : tripPlanData ? (

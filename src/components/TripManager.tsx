@@ -7,6 +7,7 @@ import { AddCityDialog } from './AddCityDialog';
 import { AddItemDialog } from './AddItemDialog';
 import { CSVImportDialog } from './CSVImportDialog';
 import { AddNotesDialog } from './AddNotesDialog';
+import { TripExpenseSummary } from './TripExpenseSummary';
 import { TripItem } from '@/types/trip';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -253,6 +254,9 @@ export function TripManager() {
 
           {/* Sidebar - Budget Overview */}
           <div className="space-y-6">
+            {/* Trip Expense Summary */}
+            <TripExpenseSummary trip={currentTrip} />
+            
             {unpaidItems.length > 0 && (
               <Card className="p-6">
                 <h3 className="font-semibold mb-4 text-warning">לתשלום ({unpaidItems.length} פריטים)</h3>
