@@ -45,6 +45,7 @@ export function TripPlanCard({ tripPlan }: TripPlanCardProps) {
       {tripPlan.summary && (
         <div>
           <Button
+            style={{direction:'rtl'}}
             variant="ghost"
             size="sm"
             onClick={() => setIsExpanded(!isExpanded)}

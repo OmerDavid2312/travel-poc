@@ -45,6 +45,7 @@ export function WeatherCard({ weather }: WeatherCardProps) {
       {weather.summary && (
         <div>
           <Button
+            style={{direction:'rtl'}}
             variant="ghost"
             size="sm"
             onClick={() => setIsExpanded(!isExpanded)}

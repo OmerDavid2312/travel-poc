@@ -102,7 +102,47 @@ export function CityCard({
           <div className="flex items-center gap-3 mb-2">
             <MapPin className="h-5 w-5 text-primary" />
             <h3 className="text-xl font-semibold">{city.name}</h3>
+            <div className="flex gap-2 shrink-0">
+          <Button 
+            size="sm" 
+            onClick={() => onAddItem(city.id)}
+          >
+            <Plus className="h-4 w-4" />
+            הוסף פריט
+          </Button>
+          
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button 
+                size="sm" 
+                variant="outline"
+                className="hover:bg-destructive/10 hover:text-destructive hover:border-destructive"
+              >
+                <Trash2 className="h-4 w-4" />
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>מחק עיר</AlertDialogTitle>
+                <AlertDialogDescription>
+                  האם אתה בטוח שברצונך למחוק את העיר "{city.name}"? 
+                  פעולה זו תמחק גם את כל הפריטים ({city.items.length}) הקשורים לעיר זו ולא ניתן לבטלה.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>ביטול</AlertDialogCancel>
+                <AlertDialogAction 
+                  onClick={() => onDeleteCity(city.id)}
+                  className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                >
+                  מחק עיר
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+        </div>
           </div>
+          
           
           {/* Weather Card */}
           {(weatherData || isLoadingWeather) && (
@@ -143,46 +183,6 @@ export function CityCard({
             <span className="text-success">שולם: {formatCurrency(totalPaid, currency)}</span>
             <span className="text-warning">נותר: {formatCurrency(totalPlanned - totalPaid, currency)}</span>
           </div>
-        </div>
-        
-        <div className="flex gap-2 shrink-0">
-          <Button 
-            size="sm" 
-            onClick={() => onAddItem(city.id)}
-          >
-            <Plus className="h-4 w-4" />
-            הוסף פריט
-          </Button>
-          
-          <AlertDialog>
-            <AlertDialogTrigger asChild>
-              <Button 
-                size="sm" 
-                variant="outline"
-                className="hover:bg-destructive/10 hover:text-destructive hover:border-destructive"
-              >
-                <Trash2 className="h-4 w-4" />
-              </Button>
-            </AlertDialogTrigger>
-            <AlertDialogContent>
-              <AlertDialogHeader>
-                <AlertDialogTitle>מחק עיר</AlertDialogTitle>
-                <AlertDialogDescription>
-                  האם אתה בטוח שברצונך למחוק את העיר "{city.name}"? 
-                  פעולה זו תמחק גם את כל הפריטים ({city.items.length}) הקשורים לעיר זו ולא ניתן לבטלה.
-                </AlertDialogDescription>
-              </AlertDialogHeader>
-              <AlertDialogFooter>
-                <AlertDialogCancel>ביטול</AlertDialogCancel>
-                <AlertDialogAction 
-                  onClick={() => onDeleteCity(city.id)}
-                  className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
-                >
-                  מחק עיר
-                </AlertDialogAction>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialog>
         </div>
       </div>
 
