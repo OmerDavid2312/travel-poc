@@ -259,7 +259,7 @@ export function TripManager() {
             
             {unpaidItems.length > 0 && (
               <Card className="p-6">
-                <h3 className="font-semibold mb-4 text-warning">לתשלום ({unpaidItems.length} פריטים)</h3>
+                <h3 className="font-semibold mb-4">לתשלום ({unpaidItems.length} פריטים)</h3>
                 <div className="space-y-2">
                   {unpaidItems.slice(0, 5).map(item => (
                     <div key={`${item.cityId}-${item.id}`} className="flex justify-between items-center text-sm">
