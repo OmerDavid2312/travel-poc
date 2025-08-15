@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -26,6 +26,34 @@ export function AddItemDialog({ open, onOpenChange, onAddItem, editItem }: AddIt
   const [bookingReference, setBookingReference] = useState(editItem?.bookingReference || '');
   const [bookingSource, setBookingSource] = useState(editItem?.bookingSource || '');
   const [note, setNote] = useState(editItem?.note || '');
+
+  // Update form fields when editItem changes
+  useEffect(() => {
+    if (editItem) {
+      setType(editItem.type);
+      setTitle(editItem.title);
+      setProvider(editItem.provider || '');
+      setDateFrom(editItem.dateFrom?.split('T')[0] || '');
+      setDateTo(editItem.dateTo?.split('T')[0] || '');
+      setPrice(editItem.price?.toString() || '');
+      setPaid(editItem.paid || false);
+      setBookingReference(editItem.bookingReference || '');
+      setBookingSource(editItem.bookingSource || '');
+      setNote(editItem.note || '');
+    } else {
+      // Reset form when not editing
+      setType('activity');
+      setTitle('');
+      setProvider('');
+      setDateFrom('');
+      setDateTo('');
+      setPrice('');
+      setPaid(false);
+      setBookingReference('');
+      setBookingSource('');
+      setNote('');
+    }
+  }, [editItem]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
