@@ -35,15 +35,15 @@ export function TripHeader({ trip, budget }: TripHeaderProps) {
             </div>
           </Card>
           
-          <Card className="p-4 bg-success/10 border-success/20 text-center">
-            <div className="text-sm text-success-foreground/70 mb-1">שולם</div>
+          <Card  className="p-4 bg-card-elevated border-0 text-center">
+            <div className="text-sm text-muted-foreground mb-1">שולם</div>
             <div className="text-lg font-semibold text-success">
               {formatCurrency(budget.totalPaid, trip.currency)}
             </div>
           </Card>
           
-          <Card className="p-4 bg-warning/10 border-warning/20 text-center">
-            <div className="text-sm text-warning-foreground/70 mb-1">נותר</div>
+          <Card className="p-4 bg-card-elevated border-0 text-center">
+            <div className="text-sm text-muted-foreground mb-1">נותר</div>
             <div className="text-lg font-semibold text-warning">
               {formatCurrency(budget.totalUnpaid, trip.currency)}
             </div>
