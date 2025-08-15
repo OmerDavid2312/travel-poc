@@ -4,60 +4,60 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ChevronDown, ChevronUp, Bot } from 'lucide-react';
 
-interface WeatherCardProps {
-  weather: {
+interface TripPlanCardProps {
+  tripPlan: {
     icon: string;
-    temperature: number;
-    condition: string;
-    forecast: string;
+    title: string;
+    description: string;
+    activities: string;
     summary?: string;
   };
 }
 
-export function WeatherCard({ weather }: WeatherCardProps) {
+export function TripPlanCard({ tripPlan }: TripPlanCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
-    <Card className="w-full bg-gradient-to-br from-purple-50 to-blue-50 border-purple-200 p-4 space-y-3">
+    <Card className="w-full bg-gradient-to-br from-green-50 to-emerald-50 border-green-200 p-4 space-y-3">
       {/* AI Badge */}
       <div className="flex items-center gap-2">
-        <Badge variant="secondary" className="bg-purple-100 text-purple-700 border-purple-200">
+        <Badge variant="secondary" className="bg-green-100 text-green-700 border-green-200">
           <Bot className="h-3 w-3 mr-1" />
-          AI Forecast
+          AI Trip Planner
         </Badge>
       </div>
 
-      {/* Main Weather Info */}
+      {/* Main Trip Plan Info */}
       <div className="flex items-center gap-3">
-        <div className="text-3xl">{weather.icon}</div>
+        <div className="text-3xl">{tripPlan.icon}</div>
         <div className="flex-1">
-          <div className="text-lg font-semibold">{weather.temperature}°C</div>
-          <div className="text-sm text-muted-foreground">{weather.condition}</div>
+          <div className="text-lg font-semibold">{tripPlan.title}</div>
+          <div className="text-sm text-muted-foreground">{tripPlan.description}</div>
         </div>
       </div>
 
-      {/* AI Forecast Text */}
+      {/* AI Activities Text */}
       <div className="text-sm text-gray-700 leading-relaxed">
-        {weather.forecast}
+        {tripPlan.activities}
       </div>
 
       {/* Expandable AI Summary */}
-      {weather.summary && (
+      {tripPlan.summary && (
         <div>
           <Button
             variant="ghost"
             size="sm"
             onClick={() => setIsExpanded(!isExpanded)}
-            className="w-full justify-between text-purple-700 hover:text-purple-800 hover:bg-purple-50"
+            className="w-full justify-between text-green-700 hover:text-green-800 hover:bg-green-50"
           >
-            <span className="text-sm">תחזית מפורטת מ-AI</span>
+            <span className="text-sm">תכנון מפורט מ-AI</span>
             {isExpanded ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
           </Button>
 
           {isExpanded && (
             <div className="mt-3 p-3 bg-white/50 rounded-lg">
               <div className="text-sm text-gray-700 leading-relaxed whitespace-pre-line">
-                {weather.summary}
+                {tripPlan.summary}
               </div>
             </div>
           )}
@@ -65,7 +65,7 @@ export function WeatherCard({ weather }: WeatherCardProps) {
       )}
 
       {/* AI Powered Footer */}
-      <div className="text-xs text-center text-purple-600 pt-2 border-t border-purple-100">
+      <div className="text-xs text-center text-green-600 pt-2 border-t border-green-100">
         🤖 נוצר עבורך ע״י AI
       </div>
     </Card>

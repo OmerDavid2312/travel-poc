@@ -20,11 +20,11 @@ export async function fetchWeatherData(city: string, tripName: string, startDate
     console.error('Error fetching weather data:', error);
     // Fallback data in case of error
     return {
-      icon: '🌤️',
-      temperature: 25,
-      condition: 'מזג אוויר נעים',
-      forecast: 'לא ניתן לטעון תחזית מזג אוויר כרגע',
-      summary: 'לא ניתן לטעון תחזית מזג אוויר כרגע'
+      icon: '',
+      temperature: -1,
+      condition: 'Unknown',
+      forecast: 'Unable to load weather forecast at this time',
+      summary: 'Unable to load weather forecast at this time'
     };
   }
 }

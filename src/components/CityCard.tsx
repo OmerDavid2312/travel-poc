@@ -6,7 +6,9 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ItemCard } from './ItemCard';
 import { WeatherCard } from './WeatherCard';
+import { TripPlanCard } from './TripPlanCard';
 import { fetchWeatherData } from '@/lib/weather';
+import { fetchTripPlanData } from '@/lib/tripPlan';
 import { 
   AlertDialog, 
   AlertDialogAction, 
@@ -43,6 +45,8 @@ export function CityCard({
 }: CityCardProps) {
   const [weatherData, setWeatherData] = useState(city.weather);
   const [isLoadingWeather, setIsLoadingWeather] = useState(false);
+  const [tripPlanData, setTripPlanData] = useState<any>(undefined);
+  const [isLoadingTripPlan, setIsLoadingTripPlan] = useState(false);
 
   const totalPlanned = city.items.reduce((sum, item) => sum + item.price, 0);
   const totalPaid = city.items.reduce((sum, item) => sum + (item.paid ? item.price : 0), 0);
@@ -65,6 +69,25 @@ export function CityCard({
 
     loadWeather();
   }, [city.name, tripName, city.startDate, city.endDate, city.weather]);
+
+  // Load trip plan data when component mounts
+  useEffect(() => {
+    const loadTripPlan = async () => {
+      if (!tripPlanData) {
+        setIsLoadingTripPlan(true);
+        try {
+          const tripPlan = await fetchTripPlanData(city.name, tripName, city.startDate, city.endDate);
+          setTripPlanData(tripPlan);
+        } catch (error) {
+          console.error('Failed to load trip plan:', error);
+        } finally {
+          setIsLoadingTripPlan(false);
+        }
+      }
+    };
+
+    loadTripPlan();
+  }, [city.name, tripName, city.startDate, city.endDate, tripPlanData]);
   
   const groupedItems = {
     flight: city.items.filter(item => item.type === 'flight'),
@@ -93,6 +116,22 @@ export function CityCard({
                 </div>
               ) : weatherData ? (
                 <WeatherCard weather={weatherData} />
+              ) : null}
+            </div>
+          )}
+
+          {/* Trip Plan Card */}
+          {(tripPlanData || isLoadingTripPlan) && (
+            <div className="mb-4">
+              {isLoadingTripPlan ? (
+                <div className="bg-gradient-to-br from-green-50 to-emerald-50 border-green-200 p-4 rounded-lg">
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-green-600"></div>
+                    <span className="text-sm text-green-600">טוען תכנון טיול...</span>
+                  </div>
+                </div>
+              ) : tripPlanData ? (
+                <TripPlanCard tripPlan={tripPlanData} />
               ) : null}
             </div>
           )}
