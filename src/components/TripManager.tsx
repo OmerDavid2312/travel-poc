@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTripContext } from '@/context/TripContext';
 import { TripHeader } from './TripHeader';
 import { CityCard } from './CityCard';
@@ -8,6 +8,7 @@ import { AddItemDialog } from './AddItemDialog';
 import { CSVImportDialog } from './CSVImportDialog';
 import { AddNotesDialog } from './AddNotesDialog';
 import { TripExpenseSummary } from './TripExpenseSummary';
+import { MoneySavingTooltip } from './MoneySavingTooltip';
 import { TripItem } from '@/types/trip';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -34,6 +35,7 @@ export function TripManager() {
   const [addItemDialogOpen, setAddItemDialogOpen] = useState(false);
   const [editingItem, setEditingItem] = useState<{ cityId: string; item: TripItem } | null>(null);
   const [selectedCityId, setSelectedCityId] = useState<string>('');
+  const [showMoneySavingTip, setShowMoneySavingTip] = useState(false);
 
   const handleCreateTrip = async (title: string, startDate: string, endDate: string, currency: string) => {
     await createTrip(title, startDate, endDate, currency);
@@ -100,6 +102,22 @@ export function TripManager() {
       cityId: city.id
     }))
   ) || [];
+
+  // Show money saving tip randomly when trip loads
+  useEffect(() => {
+    if (currentTrip) {
+      // 80% chance to show the tip (increased for testing)
+      const shouldShow = Math.random() < 0.8;
+      if (shouldShow) {
+        // Delay the tip by 1 second after trip loads (reduced for testing)
+        const timer = setTimeout(() => {
+          setShowMoneySavingTip(true);
+        }, 1000);
+        
+        return () => clearTimeout(timer);
+      }
+    }
+  }, [currentTrip]);
 
   if (loading) {
     return (
@@ -210,6 +228,12 @@ export function TripManager() {
 
   return (
     <div className="min-h-screen bg-background">
+      {/* Money Saving Tooltip */}
+      <MoneySavingTooltip 
+        isVisible={showMoneySavingTip} 
+        onClose={() => setShowMoneySavingTip(false)} 
+      />
+      
       <div className="container mx-auto px-4 py-6">
         {/* Trip Header */}
         {budget && <TripHeader trip={currentTrip} budget={budget} />}
@@ -219,6 +243,13 @@ export function TripManager() {
           <AddCityDialog onAddCity={handleAddCity} />
           <AddNotesDialog />
           <CSVImportDialog onImportCSV={handleCSVImport} />
+          <Button 
+            variant="outline" 
+            onClick={() => setShowMoneySavingTip(true)}
+            className="bg-yellow-50 border-yellow-200 text-yellow-700 hover:bg-yellow-100"
+          >
+            💡 טיפ לחיסכון
+          </Button>
           <Button variant="outline" onClick={() => window.location.reload()}>
             חזרה לטיולים
           </Button>
