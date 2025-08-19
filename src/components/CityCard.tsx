@@ -22,6 +22,9 @@ import {
 } from '@/components/ui/alert-dialog';
 import { MapPin, Plus, Trash2 } from 'lucide-react';
 
+// Configuration constant to hide AI features
+const SHOW_AI_FEATURES = false;
+
 interface CityCardProps {
   city: CityStay;
   currency: string;
@@ -145,7 +148,7 @@ export function CityCard({
           
           
           {/* Weather Card */}
-          {(weatherData || isLoadingWeather) && (
+          {SHOW_AI_FEATURES && (weatherData || isLoadingWeather) && (
             <div className="mb-4">
               {isLoadingWeather ? (
                 <div className="bg-gradient-to-br from-purple-50 to-blue-50 border-purple-200 p-4 rounded-lg">
@@ -161,7 +164,7 @@ export function CityCard({
           )}
 
           {/* Trip Plan Card */}
-          {(tripPlanData || isLoadingTripPlan) && (
+          {SHOW_AI_FEATURES && (tripPlanData || isLoadingTripPlan) && (
             <div className="mb-4">
               {isLoadingTripPlan ? (
                 <div className="bg-gradient-to-br from-green-50 to-emerald-50 border-green-200 p-4 rounded-lg">

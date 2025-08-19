@@ -18,6 +18,9 @@ import { parseCSV, importCSVToTrip } from '@/lib/csvParser';
 import { Plane, MapPin, Building, Hotel } from 'lucide-react';
 import heroImage from '@/assets/hero-travel.jpg';
 
+// Configuration constant to hide AI features
+const SHOW_AI_FEATURES = false;
+
 export function TripManager() {
   const {
     currentTrip,
@@ -266,11 +269,13 @@ export function TripManager() {
   return (
     <div className="min-h-screen bg-background">
              {/* Money Saving Tooltip */}
-       <MoneySavingTooltip 
-         isVisible={showMoneySavingTip} 
-         onClose={() => setShowMoneySavingTip(false)}
-         trip={currentTrip}
-       />
+       {SHOW_AI_FEATURES && (
+         <MoneySavingTooltip 
+           isVisible={showMoneySavingTip} 
+           onClose={() => setShowMoneySavingTip(false)}
+           trip={currentTrip}
+         />
+       )}
       
       <div className="container mx-auto px-4 py-6">
         {/* Trip Header */}
@@ -300,13 +305,15 @@ export function TripManager() {
             </div>
           )}
           
-          <Button 
-            variant="outline" 
-            onClick={() => setShowMoneySavingTip(true)}
-            className="bg-yellow-50 border-yellow-200 text-yellow-700 hover:bg-yellow-100"
-          >
-            💡 טיפ לחיסכון
-          </Button>
+                     {SHOW_AI_FEATURES && (
+             <Button 
+               variant="outline" 
+               onClick={() => setShowMoneySavingTip(true)}
+               className="bg-yellow-50 border-yellow-200 text-yellow-700 hover:bg-yellow-100"
+             >
+               💡 טיפ לחיסכון
+             </Button>
+           )}
           <Button variant="outline" onClick={() => window.location.reload()}>
             חזרה לטיולים
           </Button>
