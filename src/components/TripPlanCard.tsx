@@ -39,7 +39,7 @@ export function TripPlanCard({ tripPlan }: TripPlanCardProps) {
         </div>
 
         {/* AI Activities Text - Truncated in collapsed state */}
-        <div className={`text-sm text-gray-700 leading-relaxed ${!isExpanded ? 'line-clamp-2' : ''}`}>
+        <div style={{'padding': '0 0 0 15px'}} className={`text-sm text-gray-700 leading-relaxed pr-15 ${!isExpanded ? 'line-clamp-2' : ''}`}>
           {tripPlan.activities}
         </div>
 

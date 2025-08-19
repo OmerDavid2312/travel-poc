@@ -47,10 +47,11 @@ export function ItemCard({ item, currency, onEdit, onDelete, onTogglePaid }: Ite
               <> - {formatDate(item.dateTo)}</>
             )}
           </div>
-          
+          {item.payer && (
           <div className="text-xs text-muted-foreground">
             משלם: {item.payer}
           </div>
+          )}
           
           {item.flightNumber && (
             <div className="text-xs text-muted-foreground">

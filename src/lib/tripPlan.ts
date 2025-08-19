@@ -8,7 +8,7 @@ export interface TripPlanData {
 
 export async function fetchTripPlanData(city: string, tripName: string, startDate: string, endDate: string): Promise<TripPlanData> {
   try {
-    const response = await fetch(`http://localhost:3000/api/v1/plan?city=${encodeURIComponent(city)}&trip=${encodeURIComponent(tripName)}&startDate=${encodeURIComponent(startDate)}&endDate=${encodeURIComponent(endDate)}`);
+    const response = await fetch(`http://localhost:3000/api/v1/plan/trip-plan?city=${encodeURIComponent(city)}&trip=${encodeURIComponent(tripName)}&startDate=${encodeURIComponent(startDate)}&endDate=${encodeURIComponent(endDate)}`);
     
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);

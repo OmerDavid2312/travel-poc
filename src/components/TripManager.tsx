@@ -265,11 +265,12 @@ export function TripManager() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Money Saving Tooltip */}
-      <MoneySavingTooltip 
-        isVisible={showMoneySavingTip} 
-        onClose={() => setShowMoneySavingTip(false)} 
-      />
+             {/* Money Saving Tooltip */}
+       <MoneySavingTooltip 
+         isVisible={showMoneySavingTip} 
+         onClose={() => setShowMoneySavingTip(false)}
+         trip={currentTrip}
+       />
       
       <div className="container mx-auto px-4 py-6">
         {/* Trip Header */}

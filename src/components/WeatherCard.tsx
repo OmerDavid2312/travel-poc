@@ -39,7 +39,7 @@ export function WeatherCard({ weather }: WeatherCardProps) {
         </div>
 
         {/* AI Forecast Text - Truncated in collapsed state */}
-        <div className={`text-sm text-gray-700 leading-relaxed ${!isExpanded ? 'line-clamp-2' : ''}`}>
+        <div style={{'padding': '0 0 0 15px'}} className={`text-sm text-gray-700 leading-relaxed pr-15 ${!isExpanded ? 'line-clamp-2' : ''}`}>
           {weather.forecast}
         </div>
 
