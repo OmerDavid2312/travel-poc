@@ -47,6 +47,7 @@ export interface TripItem {
   dateTo?: string;  // ISO date string (optional for activities)
   price: number;
   paid: boolean;
+  payer: string; // Who paid or needs to pay for this item (default: "Me")
   // Type-specific properties
   flightNumber?: string; // for flights
   name?: string;         // for hotels
@@ -62,6 +63,12 @@ export interface BudgetSummary {
   totalUnpaid: number;
   byCity: Record<string, {
     cityName: string;
+    planned: number;
+    paid: number;
+    unpaid: number;
+  }>;
+  byPayer: Record<string, {
+    payerName: string;
     planned: number;
     paid: number;
     unpaid: number;

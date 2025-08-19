@@ -4,6 +4,7 @@ import { Trip, BudgetSummary } from '@/types/trip';
 
 export function calculateBudget(trip: Trip): BudgetSummary {
   const byCity: BudgetSummary['byCity'] = {};
+  const byPayer: BudgetSummary['byPayer'] = {};
   let totalPlanned = 0;
   let totalPaid = 0;
 
@@ -16,6 +17,23 @@ export function calculateBudget(trip: Trip): BudgetSummary {
       if (item.paid) {
         cityPaid += item.price;
       }
+
+      // Calculate by payer
+      const payer = item.payer || 'Me';
+      if (!byPayer[payer]) {
+        byPayer[payer] = {
+          payerName: payer,
+          planned: 0,
+          paid: 0,
+          unpaid: 0
+        };
+      }
+      
+      byPayer[payer].planned += item.price;
+      if (item.paid) {
+        byPayer[payer].paid += item.price;
+      }
+      byPayer[payer].unpaid = byPayer[payer].planned - byPayer[payer].paid;
     });
 
     totalPlanned += cityPlanned;
@@ -33,6 +51,7 @@ export function calculateBudget(trip: Trip): BudgetSummary {
     totalPlanned,
     totalPaid,
     totalUnpaid: totalPlanned - totalPaid,
-    byCity
+    byCity,
+    byPayer
   };
 }

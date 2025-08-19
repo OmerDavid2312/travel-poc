@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useTripContext } from '@/context/TripContext';
 import { TripHeader } from './TripHeader';
 import { CityCard } from './CityCard';
@@ -12,6 +12,8 @@ import { MoneySavingTooltip } from './MoneySavingTooltip';
 import { TripItem } from '@/types/trip';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { parseCSV, importCSVToTrip } from '@/lib/csvParser';
 import { Plane, MapPin, Building, Hotel } from 'lucide-react';
 import heroImage from '@/assets/hero-travel.jpg';
@@ -36,6 +38,7 @@ export function TripManager() {
   const [editingItem, setEditingItem] = useState<{ cityId: string; item: TripItem } | null>(null);
   const [selectedCityId, setSelectedCityId] = useState<string>('');
   const [showMoneySavingTip, setShowMoneySavingTip] = useState(false);
+  const [selectedPayer, setSelectedPayer] = useState<string>('all');
 
   const handleCreateTrip = async (title: string, startDate: string, endDate: string, currency: string) => {
     await createTrip(title, startDate, endDate, currency);
@@ -94,6 +97,28 @@ export function TripManager() {
     
     return result;
   };
+
+  // Get all unique payers
+  const allPayers = useMemo(() => {
+    if (!currentTrip) return [];
+    const payers = new Set<string>();
+    currentTrip.cities.forEach(city => {
+      city.items.forEach(item => {
+        payers.add(item.payer || 'Me');
+      });
+    });
+    return Array.from(payers).sort();
+  }, [currentTrip]);
+
+  // Filter items by selected payer
+  const filteredItems = useMemo(() => {
+    if (!currentTrip || selectedPayer === 'all') return currentTrip?.cities || [];
+    
+    return currentTrip.cities.map(city => ({
+      ...city,
+      items: city.items.filter(item => (item.payer || 'Me') === selectedPayer)
+    }));
+  }, [currentTrip, selectedPayer]);
 
   const unpaidItems = currentTrip?.cities.flatMap(city => 
     city.items.filter(item => !item.paid).map(item => ({
@@ -255,6 +280,25 @@ export function TripManager() {
           <AddCityDialog onAddCity={handleAddCity} />
           <AddNotesDialog />
           <CSVImportDialog onImportCSV={handleCSVImport} />
+          
+          {/* Payer Filter */}
+          {allPayers.length > 0 && (
+            <div className="flex items-center gap-2">
+              <span className="text-sm font-medium">סינון לפי משלם:</span>
+              <Select value={selectedPayer} onValueChange={setSelectedPayer}>
+                <SelectTrigger className="w-32">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">הכל</SelectItem>
+                  {allPayers.map(payer => (
+                    <SelectItem key={payer} value={payer}>{payer}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          )}
+          
           <Button 
             variant="outline" 
             onClick={() => setShowMoneySavingTip(true)}
@@ -279,19 +323,36 @@ export function TripManager() {
                 <AddCityDialog onAddCity={handleAddCity} />
               </Card>
             ) : (
-              currentTrip.cities.map(city => (
-                <CityCard
-                  key={city.id}
-                  city={city}
-                  currency={currentTrip.currency}
-                  tripName={currentTrip.title}
-                  onAddItem={handleAddItemClick}
-                  onEditItem={handleEditItem}
-                  onDeleteItem={handleDeleteItem}
-                  onTogglePaid={handleTogglePaid}
-                  onDeleteCity={handleDeleteCity}
-                />
-              ))
+              <>
+                {selectedPayer !== 'all' && (
+                  <div className="flex items-center gap-2 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                    <span className="text-sm font-medium">מציג פריטים עבור:</span>
+                    <Badge variant="secondary">{selectedPayer}</Badge>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => setSelectedPayer('all')}
+                      className="text-blue-600 hover:text-blue-800"
+                    >
+                      הצג הכל
+                    </Button>
+                  </div>
+                )}
+                
+                {filteredItems.map(city => (
+                  <CityCard
+                    key={city.id}
+                    city={city}
+                    currency={currentTrip.currency}
+                    tripName={currentTrip.title}
+                    onAddItem={handleAddItemClick}
+                    onEditItem={handleEditItem}
+                    onDeleteItem={handleDeleteItem}
+                    onTogglePaid={handleTogglePaid}
+                    onDeleteCity={handleDeleteCity}
+                  />
+                ))}
+              </>
             )}
           </div>
 
@@ -369,6 +430,43 @@ export function TripManager() {
                 </div>
               </Card>
             )}
+
+            {/* Payer Summary */}
+            {budget && Object.keys(budget.byPayer).length > 0 && (
+              <Card className="p-6">
+                <h3 className="font-semibold mb-4">תקציב לפי משלם</h3>
+                <div className="space-y-3">
+                  {Object.values(budget.byPayer).map(payerBudget => (
+                    <div key={payerBudget.payerName} className="space-y-1">
+                      <div className="flex justify-between items-center">
+                        <span className="font-medium text-sm">{payerBudget.payerName}</span>
+                        <span className="text-sm">
+                          {new Intl.NumberFormat('he-IL', {
+                            style: 'currency',
+                            currency: currentTrip.currency,
+                          }).format(payerBudget.planned)}
+                        </span>
+                      </div>
+                      <div className="w-full bg-muted rounded-full h-2">
+                        <div 
+                          className="bg-success h-2 rounded-full transition-all duration-300"
+                          style={{ 
+                            width: `${Math.min(100, (payerBudget.paid / payerBudget.planned) * 100)}%` 
+                          }}
+                        />
+                      </div>
+                      <div className="flex justify-between text-xs text-muted-foreground">
+                        <span>שולם: {new Intl.NumberFormat('he-IL', {
+                          style: 'currency',
+                          currency: currentTrip.currency,
+                        }).format(payerBudget.paid)}</span>
+                        <span>{Math.round((payerBudget.paid / payerBudget.planned) * 100)}%</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </Card>
+            )}
           </div>
         </div>
 
@@ -378,6 +476,7 @@ export function TripManager() {
           onOpenChange={setAddItemDialogOpen}
           onAddItem={handleAddItem}
           editItem={editingItem?.item}
+          existingPayers={allPayers}
         />
       </div>
     </div>

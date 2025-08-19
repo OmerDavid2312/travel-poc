@@ -13,9 +13,10 @@ interface AddItemDialogProps {
   onOpenChange: (open: boolean) => void;
   onAddItem: (item: Omit<TripItem, 'id'>) => void;
   editItem?: TripItem;
+  existingPayers?: string[]; // List of existing payer names from the trip
 }
 
-export function AddItemDialog({ open, onOpenChange, onAddItem, editItem }: AddItemDialogProps) {
+export function AddItemDialog({ open, onOpenChange, onAddItem, editItem, existingPayers = [] }: AddItemDialogProps) {
   const [type, setType] = useState<TripItemType>(editItem?.type || 'activity');
   const [title, setTitle] = useState(editItem?.title || '');
   const [provider, setProvider] = useState(editItem?.provider || '');
@@ -26,6 +27,9 @@ export function AddItemDialog({ open, onOpenChange, onAddItem, editItem }: AddIt
   const [bookingReference, setBookingReference] = useState(editItem?.bookingReference || '');
   const [bookingSource, setBookingSource] = useState(editItem?.bookingSource || '');
   const [note, setNote] = useState(editItem?.note || '');
+  const [payer, setPayer] = useState(editItem?.payer || 'Me');
+  const [customPayer, setCustomPayer] = useState('');
+  const [showCustomPayer, setShowCustomPayer] = useState(false);
 
   // Update form fields when editItem changes
   useEffect(() => {
@@ -40,6 +44,9 @@ export function AddItemDialog({ open, onOpenChange, onAddItem, editItem }: AddIt
       setBookingReference(editItem.bookingReference || '');
       setBookingSource(editItem.bookingSource || '');
       setNote(editItem.note || '');
+      setPayer(editItem.payer || 'Me');
+      setShowCustomPayer(false);
+      setCustomPayer('');
     } else {
       // Reset form when not editing
       setType('activity');
@@ -52,6 +59,9 @@ export function AddItemDialog({ open, onOpenChange, onAddItem, editItem }: AddIt
       setBookingReference('');
       setBookingSource('');
       setNote('');
+      setPayer('Me');
+      setShowCustomPayer(false);
+      setCustomPayer('');
     }
   }, [editItem]);
 
@@ -75,6 +85,7 @@ export function AddItemDialog({ open, onOpenChange, onAddItem, editItem }: AddIt
       dateTo: dateTo ? new Date(dateTo).toISOString() : undefined,
       price: priceNum,
       paid,
+      payer: showCustomPayer ? customPayer.trim() : payer.trim(),
       bookingReference: bookingReference.trim() || undefined,
       bookingSource: bookingSource.trim() || undefined,
       note: note.trim() || undefined
@@ -200,6 +211,48 @@ export function AddItemDialog({ open, onOpenChange, onAddItem, editItem }: AddIt
               onChange={(e) => setPrice(e.target.value)}
               required
             />
+          </div>
+          
+          <div className="space-y-2">
+            <Label htmlFor="payer">מי משלם</Label>
+            <div className="space-y-2">
+              <Select 
+                value={showCustomPayer ? 'custom' : payer} 
+                onValueChange={(value) => {
+                  if (value === 'custom') {
+                    setShowCustomPayer(true);
+                    setPayer('custom');
+                  } else {
+                    setShowCustomPayer(false);
+                    setPayer(value);
+                  }
+                }}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="בחר משלם" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="Me">Me</SelectItem>
+                  {existingPayers
+                    .filter(p => p !== 'Me')
+                    .map(payerName => (
+                      <SelectItem key={payerName} value={payerName}>
+                        {payerName}
+                      </SelectItem>
+                    ))}
+                  <SelectItem value="custom">+ הוסף משלם חדש</SelectItem>
+                </SelectContent>
+              </Select>
+              
+              {showCustomPayer && (
+                <Input
+                  placeholder="הקלד שם המשלם"
+                  value={customPayer}
+                  onChange={(e) => setCustomPayer(e.target.value)}
+                  required
+                />
+              )}
+            </div>
           </div>
           
           {(type === 'flight' || type === 'hotel') && (

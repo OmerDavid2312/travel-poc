@@ -48,6 +48,10 @@ export function ItemCard({ item, currency, onEdit, onDelete, onTogglePaid }: Ite
             )}
           </div>
           
+          <div className="text-xs text-muted-foreground">
+            משלם: {item.payer}
+          </div>
+          
           {item.flightNumber && (
             <div className="text-xs text-muted-foreground">
               טיסה: {item.flightNumber}
