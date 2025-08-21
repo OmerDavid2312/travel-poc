@@ -194,10 +194,24 @@ export function CityCard({
         {Object.entries(groupedItems).map(([type, items]) => {
           if (items.length === 0) return null;
           
+          // Get the correct color scheme for each item type
+          const getBadgeColors = (itemType: string) => {
+            switch (itemType) {
+              case 'hotel':
+                return 'bg-blue-100 text-blue-800 border-blue-200';
+              case 'flight':
+                return 'bg-purple-100 text-purple-800 border-purple-200';
+              case 'activity':
+                return 'bg-green-100 text-green-800 border-green-200';
+              default:
+                return 'bg-gray-100 text-gray-800 border-gray-200';
+            }
+          };
+          
           return (
             <div key={type} className="space-y-2">
               <div className="flex items-center gap-2">
-                <Badge variant={type as any} className="capitalize">
+                <Badge variant="outline" className={`capitalize ${getBadgeColors(type)}`}>
                   {type === 'flight' ? 'טיסות' : type === 'hotel' ? 'מלונות' : 'פעילויות'} ({items.length})
                 </Badge>
               </div>

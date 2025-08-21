@@ -24,6 +24,38 @@ const ITEM_ICONS = {
 export function ItemCard({ item, currency, onEdit, onDelete, onTogglePaid }: ItemCardProps) {
   const Icon = ITEM_ICONS[item.type];
   
+  // Get the correct color scheme for each item type
+  const getItemColors = () => {
+    switch (item.type) {
+      case 'hotel':
+        return {
+          bg: 'bg-blue-50',
+          text: 'text-blue-600',
+          border: 'border-blue-200'
+        };
+      case 'flight':
+        return {
+          bg: 'bg-purple-50',
+          text: 'text-purple-600',
+          border: 'border-purple-200'
+        };
+      case 'activity':
+        return {
+          bg: 'bg-green-50',
+          text: 'text-green-600',
+          border: 'border-green-200'
+        };
+      default:
+        return {
+          bg: 'bg-gray-50',
+          text: 'text-gray-600',
+          border: 'border-gray-200'
+        };
+    }
+  };
+  
+  const colors = getItemColors();
+  
   // Calculate price per night and nights count for hotels
   const calculateHotelInfo = () => {
     if (item.type !== 'hotel' || !item.dateTo) return null;
@@ -45,7 +77,7 @@ export function ItemCard({ item, currency, onEdit, onDelete, onTogglePaid }: Ite
   return (
     <Card className="p-4">
       <div className="flex items-center gap-3">
-        <div className={`p-2 rounded-lg bg-${item.type}/10 text-${item.type}`}>
+        <div className={`p-2 rounded-lg ${colors.bg} ${colors.text} border ${colors.border}`}>
           <Icon className="h-4 w-4" />
         </div>
         
