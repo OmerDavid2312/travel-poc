@@ -27,6 +27,7 @@
           "dateTo": "2024-04-15T09:30:00Z",
           "price": 450,
           "paid": true,
+          "paidAmount": 450,
           "flightNumber": "AF-1234"
         },
         {
@@ -38,6 +39,7 @@
           "dateTo": "2024-04-19T11:00:00Z",
           "price": 750,
           "paid": false,
+          "paidAmount": 0,
           "name": "Hotel du Louvre"
         },
         {
@@ -47,7 +49,8 @@
           "provider": "Paris Tourism",
           "dateFrom": "2024-04-16T10:00:00Z",
           "price": 25,
-          "paid": false
+          "paid": false,
+          "paidAmount": 0
         },
         {
           "id": "item-activity-002",
@@ -56,7 +59,8 @@
           "provider": "City Tours Paris",
           "dateFrom": "2024-04-17T14:00:00Z",
           "price": 35,
-          "paid": true
+          "paid": true,
+          "paidAmount": 35
         },
         {
           "id": "item-activity-003",
@@ -65,7 +69,8 @@
           "provider": "Bateaux Parisiens",
           "dateFrom": "2024-04-18T19:00:00Z",
           "price": 45,
-          "paid": false
+          "paid": false,
+          "paidAmount": 0
         }
       ]
     },
@@ -89,6 +94,7 @@
           "dateTo": "2024-04-19T15:30:00Z",
           "price": 180,
           "paid": true,
+          "paidAmount": 180,
           "flightNumber": "ES-9842"
         },
         {
@@ -100,6 +106,7 @@
           "dateTo": "2024-04-22T11:00:00Z",
           "price": 900,
           "paid": false,
+          "paidAmount": 0,
           "name": "The Savoy"
         },
         {
@@ -109,7 +116,8 @@
           "provider": "British Museum",
           "dateFrom": "2024-04-20T10:00:00Z",
           "price": 20,
-          "paid": false
+          "paid": false,
+          "paidAmount": 0
         },
         {
           "id": "item-activity-005",
@@ -118,7 +126,8 @@
           "provider": "Historic Royal Palaces",
           "dateFrom": "2024-04-21T11:00:00Z",
           "price": 30,
-          "paid": false
+          "paid": false,
+          "paidAmount": 0
         },
         {
           "id": "item-activity-006",
@@ -127,7 +136,8 @@
           "provider": "Theatre Booking",
           "dateFrom": "2024-04-21T19:30:00Z",
           "price": 85,
-          "paid": true
+          "paid": true,
+          "paidAmount": 85
         }
       ]
     },
@@ -151,6 +161,7 @@
           "dateTo": "2024-04-22T11:45:00Z",
           "price": 160,
           "paid": false,
+          "paidAmount": 0,
           "flightNumber": "KL-1023"
         },
         {
@@ -162,6 +173,7 @@
           "dateTo": "2024-04-25T11:00:00Z",
           "price": 480,
           "paid": false,
+          "paidAmount": 0,
           "name": "NH Collection Amsterdam"
         },
         {
@@ -171,7 +183,8 @@
           "provider": "Van Gogh Museum",
           "dateFrom": "2024-04-23T10:00:00Z",
           "price": 22,
-          "paid": false
+          "paid": false,
+          "paidAmount": 0
         },
         {
           "id": "item-activity-008",
@@ -180,7 +193,8 @@
           "provider": "Amsterdam Canal Cruises",
           "dateFrom": "2024-04-23T15:00:00Z",
           "price": 18,
-          "paid": false
+          "paid": false,
+          "paidAmount": 0
         },
         {
           "id": "item-flight-004",
@@ -191,6 +205,7 @@
           "dateTo": "2024-04-25T18:30:00Z",
           "price": 520,
           "paid": true,
+          "paidAmount": 520,
           "flightNumber": "KL-2156"
         }
       ]

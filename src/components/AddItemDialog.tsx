@@ -7,6 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Checkbox } from '@/components/ui/checkbox';
 import { Textarea } from '@/components/ui/textarea';
 import { TripItem, TripItemType } from '@/types/trip';
+import { formatCurrency } from '@/lib/utils';
 
 interface AddItemDialogProps {
   open: boolean;
@@ -24,6 +25,7 @@ export function AddItemDialog({ open, onOpenChange, onAddItem, editItem, existin
   const [dateTo, setDateTo] = useState(editItem?.dateTo?.split('T')[0] || '');
   const [price, setPrice] = useState(editItem?.price?.toString() || '');
   const [paid, setPaid] = useState(editItem?.paid || false);
+  const [paidAmount, setPaidAmount] = useState(editItem?.paidAmount?.toString() || '0');
   const [bookingReference, setBookingReference] = useState(editItem?.bookingReference || '');
   const [bookingSource, setBookingSource] = useState(editItem?.bookingSource || '');
   const [note, setNote] = useState(editItem?.note || '');
@@ -41,6 +43,7 @@ export function AddItemDialog({ open, onOpenChange, onAddItem, editItem, existin
       setDateTo(editItem.dateTo?.split('T')[0] || '');
       setPrice(editItem.price?.toString() || '');
       setPaid(editItem.paid || false);
+      setPaidAmount(editItem.paidAmount?.toString() || '0');
       setBookingReference(editItem.bookingReference || '');
       setBookingSource(editItem.bookingSource || '');
       setNote(editItem.note || '');
@@ -56,6 +59,7 @@ export function AddItemDialog({ open, onOpenChange, onAddItem, editItem, existin
       setDateTo('');
       setPrice('');
       setPaid(false);
+      setPaidAmount('0');
       setBookingReference('');
       setBookingSource('');
       setNote('');
@@ -65,6 +69,34 @@ export function AddItemDialog({ open, onOpenChange, onAddItem, editItem, existin
     }
   }, [editItem]);
 
+  // Handle paid checkbox change
+  const handlePaidChange = (checked: boolean) => {
+    setPaid(checked);
+    if (checked) {
+      // If marking as paid, set paidAmount to full price
+      setPaidAmount(price || '0');
+    } else {
+      // If unmarking as paid, reset paidAmount to 0
+      setPaidAmount('0');
+    }
+  };
+
+  // Handle paidAmount change
+  const handlePaidAmountChange = (value: string) => {
+    const numValue = parseFloat(value) || 0;
+    const priceNum = parseFloat(price) || 0;
+    
+    // Ensure paidAmount doesn't exceed price
+    if (numValue > priceNum) {
+      setPaidAmount(priceNum.toString());
+    } else {
+      setPaidAmount(value);
+    }
+    
+    // Update paid status based on whether full amount is paid
+    setPaid(numValue >= priceNum && priceNum > 0);
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
@@ -73,7 +105,13 @@ export function AddItemDialog({ open, onOpenChange, onAddItem, editItem, existin
     }
     
     const priceNum = parseFloat(price);
+    const paidAmountNum = parseFloat(paidAmount) || 0;
+    
     if (isNaN(priceNum) || priceNum < 0) {
+      return;
+    }
+    
+    if (paidAmountNum > priceNum) {
       return;
     }
     
@@ -84,7 +122,8 @@ export function AddItemDialog({ open, onOpenChange, onAddItem, editItem, existin
       dateFrom: new Date(dateFrom).toISOString(),
       dateTo: dateTo ? new Date(dateTo).toISOString() : undefined,
       price: priceNum,
-      paid,
+      paid: paidAmountNum >= priceNum && priceNum > 0,
+      paidAmount: paidAmountNum,
       payer: showCustomPayer ? customPayer.trim() : payer.trim(),
       bookingReference: bookingReference.trim() || undefined,
       bookingSource: bookingSource.trim() || undefined,
@@ -110,6 +149,7 @@ export function AddItemDialog({ open, onOpenChange, onAddItem, editItem, existin
     setDateTo('');
     setPrice('');
     setPaid(false);
+    setPaidAmount('0');
     setBookingReference('');
     setBookingSource('');
     setNote('');
@@ -214,6 +254,27 @@ export function AddItemDialog({ open, onOpenChange, onAddItem, editItem, existin
           </div>
           
           <div className="space-y-2">
+            <Label htmlFor="paidAmount">סכום שולם (אופציונלי)</Label>
+            <Input
+              id="paidAmount"
+              type="number"
+              min="0"
+              step="0.01"
+              placeholder="0.00"
+              value={paidAmount}
+              onChange={(e) => handlePaidAmountChange(e.target.value)}
+            />
+            {parseFloat(price) > 0 && (
+              <div className="text-xs text-muted-foreground">
+                מקסימום: {formatCurrency(parseFloat(price) || 0, 'ILS')}
+              </div>
+            )}
+            <div className="text-xs text-muted-foreground">
+              לדוגמה: אם המחיר 4500 ₪ ושילמת 1000 ₪, הכנס 1000
+            </div>
+          </div>
+          
+          <div className="space-y-2">
             <Label htmlFor="payer">מי משלם</Label>
             <div className="space-y-2">
               <Select 
@@ -299,7 +360,7 @@ export function AddItemDialog({ open, onOpenChange, onAddItem, editItem, existin
             <Checkbox
               id="paid"
               checked={paid}
-              onCheckedChange={(checked) => setPaid(checked as boolean)}
+              onCheckedChange={handlePaidChange}
             />
             <Label htmlFor="paid">כבר שולם</Label>
           </div>

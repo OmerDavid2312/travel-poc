@@ -380,7 +380,13 @@ export function TripProvider({ children }: TripProviderProps) {
     const item = city?.items.find(i => i.id === itemId);
     
     if (item) {
-      await updateItem(cityId, itemId, { paid: !item.paid });
+      // If currently paid, set paidAmount to 0 and paid to false
+      // If currently unpaid, set paidAmount to full price and paid to true
+      const updates = item.paid 
+        ? { paid: false, paidAmount: 0 }
+        : { paid: true, paidAmount: item.price };
+      
+      await updateItem(cityId, itemId, updates);
     }
   };
 

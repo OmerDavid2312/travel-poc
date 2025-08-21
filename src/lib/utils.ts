@@ -35,3 +35,18 @@ export function formatDateRange(startDate: string, endDate: string): string {
   
   return `${formatDate(startDate)} - ${formatDate(endDate)}`;
 }
+
+export function migrateTripData(trip: any): any {
+  if (!trip || !trip.cities) return trip;
+  
+  const migratedTrip = { ...trip };
+  migratedTrip.cities = trip.cities.map((city: any) => ({
+    ...city,
+    items: city.items.map((item: any) => ({
+      ...item,
+      paidAmount: item.paidAmount !== undefined ? item.paidAmount : (item.paid ? item.price : 0)
+    }))
+  }));
+  
+  return migratedTrip;
+}

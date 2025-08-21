@@ -77,14 +77,19 @@ export function ItemCard({ item, currency, onEdit, onDelete, onTogglePaid }: Ite
             <div className="font-medium text-sm">
               {formatCurrency(item.price, currency)}
             </div>
+            {item.paidAmount > 0 && item.paidAmount < item.price && (
+              <div className="text-xs text-muted-foreground">
+                שולם: {formatCurrency(item.paidAmount, currency)}
+              </div>
+            )}
             <div className="flex items-center gap-2">
               <Checkbox
                 checked={item.paid}
                 onCheckedChange={onTogglePaid}
                 className="scale-75"
               />
-              <span className={`text-xs ${item.paid ? 'text-success' : 'text-warning'}`}>
-                {item.paid ? 'שולם' : 'לא שולם'}
+              <span className={`text-xs ${item.paid ? 'text-success' : item.paidAmount > 0 ? 'text-warning' : 'text-warning'}`}>
+                {item.paid ? 'שולם' : item.paidAmount > 0 ? 'שולם חלקית' : 'לא שולם'}
               </span>
             </div>
           </div>

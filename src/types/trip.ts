@@ -47,6 +47,7 @@ export interface TripItem {
   dateTo?: string;  // ISO date string (optional for activities)
   price: number;
   paid: boolean;
+  paidAmount: number; // Amount already paid (0 to price)
   payer: string; // Who paid or needs to pay for this item (default: "Me")
   // Type-specific properties
   flightNumber?: string; // for flights

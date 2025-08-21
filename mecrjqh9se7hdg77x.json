@@ -1,0 +1,294 @@
+{
+    "id": "mecrjqh9se7hdg77x",
+    "title": "USA",
+    "startDate": "2025-09-27",
+    "endDate": "2025-10-16",
+    "currency": "ILS",
+    "cities": [
+      {
+        "id": "meeepc4fd0ugad1gd",
+        "name": "New York",
+        "startDate": "2025-09-27",
+        "endDate": "2025-10-03",
+        "items": [
+          {
+            "type": "hotel",
+            "title": "DoubleTree by Hilton New York Midtown Fifth Ave",
+            "provider": "DoubleTree",
+            "dateFrom": "2025-09-27T00:00:00.000Z",
+            "dateTo": "2025-10-03T00:00:00.000Z",
+            "price": 6804,
+            "paid": false,
+            "bookingReference": "6391017358",
+            "bookingSource": "Booking",
+            "name": "DoubleTree by Hilton New York Midtown Fifth Ave",
+            "id": "meeet2w99k249kzam",
+            "payer": "אני וספיר"
+          },
+          {
+            "type": "activity",
+            "title": "צלמת",
+            "dateFrom": "2025-10-01T00:00:00.000Z",
+            "price": 1014,
+            "paid": false,
+            "bookingSource": "Instagram",
+            "id": "meeevhb1zeur68dfj",
+            "payer": "אני וספיר"
+          },
+          {
+            "type": "activity",
+            "title": "הצגה אלדין",
+            "provider": "TicketMaster",
+            "dateFrom": "2025-10-01T00:00:00.000Z",
+            "price": 658,
+            "paid": true,
+            "payer": "ספיר",
+            "id": "mek73t90xfrsg4wzn"
+          },
+          {
+            "type": "flight",
+            "title": "TLV <> NYE",
+            "provider": "EL AL",
+            "dateFrom": "2025-09-27T00:00:00.000Z",
+            "dateTo": "2025-10-16T00:00:00.000Z",
+            "price": 11000,
+            "paid": true,
+            "payer": "Me",
+            "bookingSource": "EL AL",
+            "flightNumber": "EL AL-2540",
+            "id": "mek769zpyv427tbbv"
+          }
+        ],
+        "weather": null
+      },
+      {
+        "id": "mecxwarsllmbnhsxc",
+        "name": "MIAMI",
+        "startDate": "2025-10-03",
+        "endDate": "2025-10-07",
+        "items": [
+          {
+            "type": "hotel",
+            "title": "The March Hotel",
+            "provider": "March",
+            "dateFrom": "2025-10-03T00:00:00.000Z",
+            "dateTo": "2025-10-05T00:00:00.000Z",
+            "price": 1623,
+            "paid": false,
+            "bookingReference": "5241200731",
+            "bookingSource": "Booking",
+            "name": "The March Hotel",
+            "id": "mecxxo0ij83zwpwdp",
+            "payer": "אני וספיר"
+          },
+          {
+            "type": "hotel",
+            "title": "The Elser Hotel Miami - An All-Suite Hotel",
+            "provider": "Elser",
+            "dateFrom": "2025-10-05T00:00:00.000Z",
+            "dateTo": "2025-10-07T00:00:00.000Z",
+            "price": 1683,
+            "paid": false,
+            "bookingReference": "5144022348",
+            "bookingSource": "Booking",
+            "name": "The Elser Hotel Miami - An All-Suite Hotel",
+            "id": "mecxyf3yxdipaj061",
+            "payer": "אני וספיר"
+          },
+          {
+            "type": "activity",
+            "title": "Inter Miami Match",
+            "dateFrom": "2025-10-04T00:00:00.000Z",
+            "price": 750,
+            "paid": true,
+            "bookingSource": "Ticketmaster",
+            "id": "mecybnt4kiwnivavo"
+          },
+          {
+            "type": "activity",
+            "title": "Miami Heat vs. Milwaukee Bucks",
+            "dateFrom": "2025-10-06T00:00:00.000Z",
+            "price": 218,
+            "paid": true,
+            "bookingSource": "Ticketmaster",
+            "id": "meeen5blo0e987jvt"
+          },
+          {
+            "type": "flight",
+            "title": "NYE > MIA",
+            "provider": "American Airline",
+            "dateFrom": "2025-10-03T00:00:00.000Z",
+            "dateTo": "2025-10-03T00:00:00.000Z",
+            "price": 1050,
+            "paid": true,
+            "payer": "אני וספיר",
+            "flightNumber": "American Airline-358",
+            "id": "mek78efb9u2r8bvg3"
+          }
+        ],
+        "weather": null
+      },
+      {
+        "id": "mecy57p4lq9793owb",
+        "name": "Las Vegas",
+        "startDate": "2025-10-07",
+        "endDate": "2025-10-12",
+        "items": [
+          {
+            "type": "hotel",
+            "title": "Caesars Palace Hotel & Casino",
+            "provider": "Caesars",
+            "dateFrom": "2025-10-07T00:00:00.000Z",
+            "dateTo": "2025-10-11T00:00:00.000Z",
+            "price": 4514,
+            "paid": false,
+            "bookingReference": "6668094441",
+            "bookingSource": "Booking",
+            "name": "Caesars Palace Hotel & Casino",
+            "id": "mecy6h9kn6uhube47",
+            "payer": "אני וספיר"
+          },
+          {
+            "type": "hotel",
+            "title": "Planet Hollywood Resort & Casino",
+            "dateFrom": "2025-10-11T00:00:00.000Z",
+            "dateTo": "2025-10-12T00:00:00.000Z",
+            "price": 1087,
+            "paid": false,
+            "bookingReference": "5744441606",
+            "bookingSource": "Booking",
+            "name": "Planet Hollywood Resort & Casino",
+            "id": "mecy8y4j1e2u1m6w6",
+            "payer": "אני וספיר"
+          },
+          {
+            "type": "activity",
+            "title": "Martin Garrix w/ Justin Mylo - Indigenous Peoples Day",
+            "provider": "Tao Group",
+            "dateFrom": "2025-10-10T00:00:00.000Z",
+            "price": 355,
+            "paid": true,
+            "id": "meeelti26a5rovkj9"
+          },
+          {
+            "type": "activity",
+            "title": "הופעה",
+            "provider": "Vegas.com",
+            "dateFrom": "2025-10-09T00:00:00.000Z",
+            "price": 1550,
+            "paid": true,
+            "bookingSource": "Vegas.com",
+            "id": "megqi1p3owh500d3k",
+            "payer": "אמא של ספיר"
+          },
+          {
+            "type": "flight",
+            "title": "MIA > LAS",
+            "provider": "American Airline",
+            "dateFrom": "2025-10-07T00:00:00.000Z",
+            "dateTo": "2025-10-07T00:00:00.000Z",
+            "price": 1093,
+            "paid": true,
+            "payer": "אני וספיר",
+            "flightNumber": "American Airline-7053",
+            "id": "mek79v4rbipm9klhm"
+          },
+          {
+            "type": "activity",
+            "title": "רכב יוקרה",
+            "provider": "Enterprise Rent-A-Car",
+            "dateFrom": "2025-10-09T00:00:00.000Z",
+            "price": 682,
+            "paid": false,
+            "payer": "Me",
+            "id": "mek7dkhmlgiowi1cz"
+          }
+        ],
+        "weather": null
+      },
+      {
+        "id": "meeenr4kanpppjz8y",
+        "name": "Los Angeles",
+        "startDate": "2025-10-12",
+        "endDate": "2025-10-15",
+        "items": [
+          {
+            "type": "activity",
+            "title": "Universal Studio + Express",
+            "provider": "Universal Studio",
+            "dateFrom": "2025-10-13T00:00:00.000Z",
+            "price": 1655,
+            "paid": true,
+            "bookingSource": "Universal Studio",
+            "id": "meeeohu5j7pt0ntdc",
+            "payer": "אמא של ספיר"
+          },
+          {
+            "type": "hotel",
+            "title": "Loews Hollywood Hotel",
+            "provider": "Loews",
+            "dateFrom": "2025-10-12T00:00:00.000Z",
+            "dateTo": "2025-10-15T00:00:00.000Z",
+            "price": 2342,
+            "paid": false,
+            "bookingReference": "5350693324",
+            "bookingSource": "Booking",
+            "name": "Loews Hollywood Hotel",
+            "id": "meeeshciwjwu9zigt",
+            "payer": "אני וספיר"
+          },
+          {
+            "type": "flight",
+            "title": "LAS > LAX",
+            "provider": "American Airline",
+            "dateFrom": "2025-10-12T00:00:00.000Z",
+            "dateTo": "2025-10-12T00:00:00.000Z",
+            "price": 1093,
+            "paid": true,
+            "payer": "אני וספיר",
+            "flightNumber": "American Airline-352",
+            "id": "mek7b0c7rxrut4plr"
+          }
+        ],
+        "weather": null
+      },
+      {
+        "id": "meeetguf1gpaxeq99",
+        "name": "New York",
+        "startDate": "2025-10-15",
+        "endDate": "2025-10-16",
+        "items": [
+          {
+            "type": "hotel",
+            "title": "Millennium Hotel Broadway Times Square",
+            "provider": "Millennium",
+            "dateFrom": "2025-10-15T00:00:00.000Z",
+            "dateTo": "2025-10-16T00:00:00.000Z",
+            "price": 1100,
+            "paid": false,
+            "bookingReference": "6756554368",
+            "bookingSource": "Booking",
+            "name": "Millennium Hotel Broadway Times Square",
+            "id": "meeeuea9i78wcz93u",
+            "payer": "אני וספיר"
+          },
+          {
+            "type": "flight",
+            "title": "LAX > NYE",
+            "provider": "JetBlue",
+            "dateFrom": "2025-10-15T00:00:00.000Z",
+            "dateTo": "2025-10-15T00:00:00.000Z",
+            "price": 1560,
+            "paid": true,
+            "payer": "אני וספיר",
+            "flightNumber": "JetBlue-5350",
+            "id": "mek7bucsjcneyim1x"
+          }
+        ],
+        "weather": null
+      }
+    ],
+    "notes": [],
+    "createdAt": "2025-08-15T11:47:07.341Z",
+    "updatedAt": "2025-08-20T16:50:39.359Z"
+  }

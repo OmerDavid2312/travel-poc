@@ -14,9 +14,9 @@ export function calculateBudget(trip: Trip): BudgetSummary {
 
     city.items.forEach(item => {
       cityPlanned += item.price;
-      if (item.paid) {
-        cityPaid += item.price;
-      }
+      // Use paidAmount for partial payments
+      const itemPaidAmount = item.paidAmount || 0;
+      cityPaid += itemPaidAmount;
 
       // Calculate by payer
       const payer = item.payer || 'Me';
@@ -30,9 +30,7 @@ export function calculateBudget(trip: Trip): BudgetSummary {
       }
       
       byPayer[payer].planned += item.price;
-      if (item.paid) {
-        byPayer[payer].paid += item.price;
-      }
+      byPayer[payer].paid += itemPaidAmount;
       byPayer[payer].unpaid = byPayer[payer].planned - byPayer[payer].paid;
     });
 
