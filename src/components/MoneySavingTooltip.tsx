@@ -6,6 +6,9 @@ import { Button } from '@/components/ui/button';
 import { Trip } from '@/types/trip';
 import { fetchMoneySavingTip, MoneySavingTip } from '@/lib/moneySavingTips';
 
+// Configuration constant to hide AI features
+const SHOW_AI_FEATURES = false;
+
 // Fallback tips in case API fails
 const fallbackTips = [
   "לבדוק עמלות אשראי לפני הנסיעה",
@@ -48,6 +51,13 @@ export function MoneySavingTooltip({ isVisible, onClose, trip }: MoneySavingTool
 
   const fetchMoneySavingTipData = async () => {
     if (!trip) return;
+    
+    if (!SHOW_AI_FEATURES) {
+      // Use fallback tips when AI features are disabled
+      const randomIndex = Math.floor(Math.random() * fallbackTips.length);
+      setCurrentTip(fallbackTips[randomIndex]);
+      return;
+    }
     
     setIsLoading(true);
     try {

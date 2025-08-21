@@ -56,6 +56,8 @@ export function CityCard({
 
   // Load weather data when component mounts
   useEffect(() => {
+    if (!SHOW_AI_FEATURES) return; // Skip API calls if AI features are disabled
+    
     const loadWeather = async () => {
       if (!city.weather) {
         setIsLoadingWeather(true);
@@ -75,6 +77,8 @@ export function CityCard({
 
   // Load trip plan data when component mounts
   useEffect(() => {
+    if (!SHOW_AI_FEATURES) return; // Skip API calls if AI features are disabled
+    
     const loadTripPlan = async () => {
       if (!tripPlanData) {
         setIsLoadingTripPlan(true);
