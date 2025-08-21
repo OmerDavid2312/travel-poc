@@ -5,9 +5,7 @@ import { Lightbulb, X, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Trip } from '@/types/trip';
 import { fetchMoneySavingTip, MoneySavingTip } from '@/lib/moneySavingTips';
-
-// Configuration constant to hide AI features
-const SHOW_AI_FEATURES = false;
+import { SHOW_AI_FEATURES } from '@/lib/config';
 
 // Fallback tips in case API fails
 const fallbackTips = [

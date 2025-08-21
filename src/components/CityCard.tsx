@@ -9,6 +9,7 @@ import { WeatherCard } from './WeatherCard';
 import { TripPlanCard } from './TripPlanCard';
 import { fetchWeatherData } from '@/lib/weather';
 import { fetchTripPlanData } from '@/lib/tripPlan';
+import { SHOW_AI_FEATURES } from '@/lib/config';
 import { 
   AlertDialog, 
   AlertDialogAction, 
@@ -21,9 +22,6 @@ import {
   AlertDialogTrigger 
 } from '@/components/ui/alert-dialog';
 import { MapPin, Plus, Trash2 } from 'lucide-react';
-
-// Configuration constant to hide AI features
-const SHOW_AI_FEATURES = false;
 
 interface CityCardProps {
   city: CityStay;

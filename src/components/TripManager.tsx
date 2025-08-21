@@ -17,9 +17,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { parseCSV, importCSVToTrip } from '@/lib/csvParser';
 import { Plane, MapPin, Building, Hotel } from 'lucide-react';
 import heroImage from '@/assets/hero-travel.jpg';
-
-// Configuration constant to hide AI features
-const SHOW_AI_FEATURES = false;
+import { SHOW_AI_FEATURES } from '@/lib/config';
 
 export function TripManager() {
   const {
