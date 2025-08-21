@@ -160,57 +160,61 @@ export function AddItemDialog({ open, onOpenChange, onAddItem, editItem, existin
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[500px] max-h-[85vh]">
         <DialogHeader>
           <DialogTitle>{isEditing ? 'עריכת פריט' : 'הוספת פריט חדש'}</DialogTitle>
         </DialogHeader>
         
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="type">סוג פריט</Label>
-            <Select value={type} onValueChange={(value: TripItemType) => setType(value)}>
-              <SelectTrigger>
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="flight">טיסה</SelectItem>
-                <SelectItem value="hotel">בית מלון</SelectItem>
-                <SelectItem value="activity">פעילות / הוצאה</SelectItem>
-              </SelectContent>
-            </Select>
+                 <form onSubmit={handleSubmit} className="space-y-4 max-h-[60vh] overflow-y-auto pr-2 pl-3">
+          {/* Basic Information */}
+          <div className="space-y-3">
+            <div className="space-y-2">
+              <Label htmlFor="type">סוג פריט</Label>
+              <Select value={type} onValueChange={(value: TripItemType) => setType(value)}>
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="flight">טיסה</SelectItem>
+                  <SelectItem value="hotel">בית מלון</SelectItem>
+                  <SelectItem value="activity">פעילות / הוצאה</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            
+            <div className="space-y-2">
+              <Label htmlFor="title">כותרת</Label>
+              <Input
+                id="title"
+                placeholder={
+                  type === 'flight' ? 'לדוגמה: טיסה לפריז' :
+                  type === 'hotel' ? 'לדוגמה: מלון גרנד פלאזה' :
+                  'לדוגמה: ביקור במוזיאון'
+                }
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                required
+              />
+            </div>
+            
+            <div className="space-y-2">
+              <Label htmlFor="provider">
+                {type === 'flight' ? 'חברת תעופה' : type === 'hotel' ? 'רשת מלונות' : 'ספק'} (אופציונלי)
+              </Label>
+              <Input
+                id="provider"
+                placeholder={
+                  type === 'flight' ? 'לדוגמה: אל על' :
+                  type === 'hotel' ? 'לדוגמה: מריוט' :
+                  'לדוגמה: מדריך טיולים מקומי'
+                }
+                value={provider}
+                onChange={(e) => setProvider(e.target.value)}
+              />
+            </div>
           </div>
-          
-          <div className="space-y-2">
-            <Label htmlFor="title">כותרת</Label>
-            <Input
-              id="title"
-              placeholder={
-                type === 'flight' ? 'לדוגמה: טיסה לפריז' :
-                type === 'hotel' ? 'לדוגמה: מלון גרנד פלאזה' :
-                'לדוגמה: ביקור במוזיאון'
-              }
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              required
-            />
-          </div>
-          
-          <div className="space-y-2">
-            <Label htmlFor="provider">
-              {type === 'flight' ? 'חברת תעופה' : type === 'hotel' ? 'רשת מלונות' : 'ספק'} (אופציונלי)
-            </Label>
-            <Input
-              id="provider"
-              placeholder={
-                type === 'flight' ? 'לדוגמה: אל על' :
-                type === 'hotel' ? 'לדוגמה: מריוט' :
-                'לדוגמה: מדריך טיולים מקומי'
-              }
-              value={provider}
-              onChange={(e) => setProvider(e.target.value)}
-            />
-          </div>
-          
+
+          {/* Dates */}
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="dateFrom">
@@ -238,84 +242,96 @@ export function AddItemDialog({ open, onOpenChange, onAddItem, editItem, existin
               </div>
             )}
           </div>
-          
-          <div className="space-y-2">
-            <Label htmlFor="price">מחיר</Label>
-            <Input
-              id="price"
-              type="number"
-              min="0"
-              step="0.01"
-              placeholder="0.00"
-              value={price}
-              onChange={(e) => setPrice(e.target.value)}
-              required
-            />
-          </div>
-          
-          <div className="space-y-2">
-            <Label htmlFor="paidAmount">סכום ששולם (אופציונלי)</Label>
-            <Input
-              id="paidAmount"
-              type="number"
-              min="0"
-              step="0.01"
-              placeholder="0.00"
-              value={paidAmount}
-              onChange={(e) => handlePaidAmountChange(e.target.value)}
-            />
-            {parseFloat(price) > 0 && (
-              <div className="text-xs text-muted-foreground">
-                מקסימום: {formatCurrency(parseFloat(price) || 0, 'ILS')}
-              </div>
-            )}
-            <div className="text-xs text-muted-foreground">
-              לדוגמה: אם המחיר 4500 ₪ ושילמת 1000 ₪, הכנס 1000
-            </div>
-          </div>
-          
-          <div className="space-y-2">
-            <Label htmlFor="payer">מי משלם</Label>
-            <div className="space-y-2">
-              <Select 
-                value={showCustomPayer ? 'custom' : payer} 
-                onValueChange={(value) => {
-                  if (value === 'custom') {
-                    setShowCustomPayer(true);
-                    setPayer('custom');
-                  } else {
-                    setShowCustomPayer(false);
-                    setPayer(value);
-                  }
-                }}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="בחר משלם" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="Me">Me</SelectItem>
-                  {existingPayers
-                    .filter(p => p !== 'Me')
-                    .map(payerName => (
-                      <SelectItem key={payerName} value={payerName}>
-                        {payerName}
-                      </SelectItem>
-                    ))}
-                  <SelectItem value="custom">+ הוסף משלם חדש</SelectItem>
-                </SelectContent>
-              </Select>
-              
-              {showCustomPayer && (
+
+          {/* Payment Information */}
+          <div className="space-y-3">
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="price">מחיר</Label>
                 <Input
-                  placeholder="הקלד שם המשלם"
-                  value={customPayer}
-                  onChange={(e) => setCustomPayer(e.target.value)}
+                  id="price"
+                  type="number"
+                  min="0"
+                  step="0.01"
+                  placeholder="0.00"
+                  value={price}
+                  onChange={(e) => setPrice(e.target.value)}
                   required
                 />
-              )}
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="paidAmount">סכום ששולם</Label>
+                <Input
+                  id="paidAmount"
+                  type="number"
+                  min="0"
+                  step="0.01"
+                  placeholder="0.00"
+                  value={paidAmount}
+                  onChange={(e) => handlePaidAmountChange(e.target.value)}
+                />
+              </div>
+            </div>
+            
+            {parseFloat(price) > 0 && (
+              <div className="text-xs text-muted-foreground">
+                מקסימום: {formatCurrency(parseFloat(price) || 0, 'ILS')} • לדוגמה: אם המחיר 4500 ₪ ושילמת 1000 ₪, הכנס 1000
+              </div>
+            )}
+            
+            <div className="flex items-center space-x-2">
+              <Checkbox
+                id="paid"
+                checked={paid}
+                onCheckedChange={handlePaidChange}
+              />
+              <Label htmlFor="paid" className="text-sm">תשלום הושלם</Label>
             </div>
           </div>
-          
+
+          {/* Payer */}
+          <div className="space-y-2">
+            <Label htmlFor="payer">מי משלם</Label>
+            <Select 
+              value={showCustomPayer ? 'custom' : payer} 
+              onValueChange={(value) => {
+                if (value === 'custom') {
+                  setShowCustomPayer(true);
+                  setPayer('custom');
+                } else {
+                  setShowCustomPayer(false);
+                  setPayer(value);
+                }
+              }}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="בחר משלם" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="Me">Me</SelectItem>
+                {existingPayers
+                  .filter(p => p !== 'Me')
+                  .map(payerName => (
+                    <SelectItem key={payerName} value={payerName}>
+                      {payerName}
+                    </SelectItem>
+                  ))}
+                <SelectItem value="custom">+ הוסף משלם חדש</SelectItem>
+              </SelectContent>
+            </Select>
+            
+            {showCustomPayer && (
+              <Input
+                placeholder="הקלד שם המשלם"
+                value={customPayer}
+                onChange={(e) => setCustomPayer(e.target.value)}
+                required
+              />
+            )}
+          </div>
+
+          {/* Booking Information */}
           {(type === 'flight' || type === 'hotel') && (
             <div className="space-y-2">
               <Label htmlFor="bookingReference">אסמכתא הזמנה (אופציונלי)</Label>
@@ -344,7 +360,8 @@ export function AddItemDialog({ open, onOpenChange, onAddItem, editItem, existin
               onChange={(e) => setBookingSource(e.target.value)}
             />
           </div>
-          
+
+          {/* Notes */}
           <div className="space-y-2">
             <Label htmlFor="note">הערות (אופציונלי)</Label>
             <Textarea
@@ -352,28 +369,20 @@ export function AddItemDialog({ open, onOpenChange, onAddItem, editItem, existin
               placeholder="הוסף הערות נוספות על הפריט..."
               value={note}
               onChange={(e) => setNote(e.target.value)}
-              rows={3}
+              rows={2}
             />
-          </div>
-          
-          <div className="flex items-center space-x-2">
-            <Checkbox
-              id="paid"
-              checked={paid}
-              onCheckedChange={handlePaidChange}
-            />
-            <Label htmlFor="paid">תשלום הושלם</Label>
-          </div>
-          
-          <div className="flex justify-end gap-3 pt-4">
-            <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
-              ביטול
-            </Button>
-            <Button type="submit">
-              {isEditing ? 'עדכן פריט' : 'הוסף פריט'}
-            </Button>
           </div>
         </form>
+        
+        {/* Fixed Footer */}
+        <div className="flex justify-end gap-3 pt-4 border-t mt-4">
+          <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
+            ביטול
+          </Button>
+          <Button type="submit" onClick={handleSubmit}>
+            {isEditing ? 'עדכן פריט' : 'הוסף פריט'}
+          </Button>
+        </div>
       </DialogContent>
     </Dialog>
   );
