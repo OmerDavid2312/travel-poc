@@ -90,14 +90,9 @@ export function ItemCard({ item, currency, onEdit, onDelete, onTogglePaid }: Ite
               </Badge>
             )}
             {hotelInfo && (
-              <div className="flex items-center gap-1">
-                <Badge variant="secondary" className="text-xs bg-blue-100 text-blue-800">
-                  {formatCurrency(hotelInfo.pricePerNight, currency)} ללילה
-                </Badge>
-                <Badge variant="outline" className="text-xs text-gray-600 border-gray-300">
-                  {hotelInfo.nights} לילות
-                </Badge>
-              </div>
+              <Badge variant="secondary" className="text-xs bg-blue-100 text-blue-800">
+                {formatCurrency(hotelInfo.pricePerNight, currency)} ללילה
+              </Badge>
             )}
           </div>
           
