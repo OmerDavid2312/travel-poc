@@ -167,19 +167,19 @@ export function TripManager() {
           />
           <div className="relative container mx-auto px-4 py-24">
             <div className="text-center max-w-3xl mx-auto">
-              <h1 className="text-5xl font-bold mb-6 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                מנהל הטיולים
-              </h1>
-              <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
-                ארגן את הנסיעות שלך בסטייל. נהל ערים, עקוב אחר הוצאות ושמור על התקציב שלך במסלול.
-              </p>
+                             <h1 className="text-5xl font-bold mb-6 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                 חופשה בסדר
+               </h1>
+               <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
+                 ארגן את החופשות שלך בקלות. נהל יעדים, עקוב אחר הוצאות ושמור על התקציב שלך במסלול.
+               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                 <CreateTripDialog onCreateTrip={handleCreateTrip} />
-                {allTrips.length > 0 && (
-                  <p className="text-sm text-muted-foreground">
-                    או בחר מתוך {allTrips.length} טיול{allTrips.length > 1 ? 'ים' : ''} קיים{allTrips.length > 1 ? 'ים' : ''}
-                  </p>
-                )}
+                                 {allTrips.length > 0 && (
+                   <p className="text-sm text-muted-foreground">
+                     או בחר מתוך {allTrips.length} חופשה{allTrips.length > 1 ? 'ות' : ''} קיימת{allTrips.length > 1 ? 'ות' : ''}
+                   </p>
+                 )}
               </div>
             </div>
           </div>
@@ -192,10 +192,10 @@ export function TripManager() {
               <div className="w-12 h-12 bg-flight/10 text-flight rounded-lg flex items-center justify-center mx-auto mb-4">
                 <Plane className="h-6 w-6" />
               </div>
-              <h3 className="font-semibold mb-2">מעקב אחר טיסות</h3>
-              <p className="text-sm text-muted-foreground">
-                עקוב אחר הזמנות טיסות, חברות תעופה ותאריכי נסיעה בקלות.
-              </p>
+                             <h3 className="font-semibold mb-2">מעקב אחר טיסות</h3>
+               <p className="text-sm text-muted-foreground">
+                 עקוב אחר הזמנות טיסות, חברות תעופה ותאריכי חופשה בקלות.
+               </p>
             </Card>
             
             <Card className="p-6 text-center">
@@ -212,10 +212,10 @@ export function TripManager() {
               <div className="w-12 h-12 bg-activity/10 text-activity rounded-lg flex items-center justify-center mx-auto mb-4">
                 <MapPin className="h-6 w-6" />
               </div>
-              <h3 className="font-semibold mb-2">תכנון פעילויות</h3>
-              <p className="text-sm text-muted-foreground">
-                ארגן פעילויות ועקוב אחר כל הוצאות הנסיעה שלך.
-              </p>
+                             <h3 className="font-semibold mb-2">תכנון פעילויות</h3>
+               <p className="text-sm text-muted-foreground">
+                 ארגן פעילויות ועקוב אחר כל הוצאות החופשה שלך.
+               </p>
             </Card>
 
             <Card className="p-6 text-center">
@@ -231,10 +231,10 @@ export function TripManager() {
             </Card>
           </div>
 
-          {/* Recent Trips */}
-          {allTrips.length > 0 && (
-            <div>
-              <h2 className="text-2xl font-semibold mb-6">הטיולים האחרונים שלך</h2>
+                     {/* Recent Trips */}
+           {allTrips.length > 0 && (
+             <div>
+               <h2 className="text-2xl font-semibold mb-6">החופשות האחרונות שלך</h2>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {allTrips.slice(0, 6).map(trip => (
                   <Card 
@@ -247,9 +247,9 @@ export function TripManager() {
                       {new Date(trip.startDate).toLocaleDateString()} - {new Date(trip.endDate).toLocaleDateString()}
                     </p>
                     <div className="flex justify-between items-center">
-                      <span className="text-xs text-muted-foreground">
-                        {trip.cities.length} ערים
-                      </span>
+                                             <span className="text-xs text-muted-foreground">
+                         {trip.cities.length} יעדים
+                       </span>
                       <Button size="sm" variant="outline">
                         פתח
                       </Button>
@@ -312,9 +312,9 @@ export function TripManager() {
                💡 טיפ לחיסכון
              </Button>
            )}
-          <Button variant="outline" onClick={() => window.location.reload()}>
-            חזרה לטיולים
-          </Button>
+                     <Button variant="outline" onClick={() => window.location.reload()}>
+             חזרה לחופשות
+           </Button>
         </div>
 
         <div className="grid lg:grid-cols-3 gap-6">
@@ -322,10 +322,10 @@ export function TripManager() {
           <div className="lg:col-span-2 space-y-6">
             {currentTrip.cities.length === 0 ? (
               <Card className="p-12 text-center">
-                <h3 className="text-lg font-medium mb-2">עדיין לא נוספו ערים</h3>
-                <p className="text-muted-foreground mb-6">
-                  התחל לתכנן את הטיול שלך על ידי הוספת היעד הראשון שלך.
-                </p>
+                                 <h3 className="text-lg font-medium mb-2">עדיין לא נוספו יעדים</h3>
+                 <p className="text-muted-foreground mb-6">
+                   התחל לתכנן את החופשה שלך על ידי הוספת היעד הראשון שלך.
+                 </p>
                 <AddCityDialog onAddCity={handleAddCity} />
               </Card>
             ) : (

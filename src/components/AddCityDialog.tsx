@@ -46,12 +46,12 @@ export function AddCityDialog({ onAddCity }: AddCityDialogProps) {
       
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>הוסף עיר חדשה</DialogTitle>
+          <DialogTitle>הוסף יעד חדש</DialogTitle>
         </DialogHeader>
         
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="cityName">שם העיר</Label>
+            <Label htmlFor="cityName">שם היעד</Label>
             <Input
               id="cityName"
               placeholder="לדוגמה: פריז, טוקיו, ניו יורק"
@@ -91,7 +91,7 @@ export function AddCityDialog({ onAddCity }: AddCityDialogProps) {
               ביטול
             </Button>
             <Button type="submit">
-              הוסף עיר
+              הוסף יעד
             </Button>
           </div>
         </form>

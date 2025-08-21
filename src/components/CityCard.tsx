@@ -128,11 +128,11 @@ export function CityCard({
             </AlertDialogTrigger>
             <AlertDialogContent>
               <AlertDialogHeader>
-                <AlertDialogTitle>מחק עיר</AlertDialogTitle>
-                <AlertDialogDescription>
-                  האם אתה בטוח שברצונך למחוק את העיר "{city.name}"? 
-                  פעולה זו תמחק גם את כל הפריטים ({city.items.length}) הקשורים לעיר זו ולא ניתן לבטלה.
-                </AlertDialogDescription>
+                            <AlertDialogTitle>מחק יעד</AlertDialogTitle>
+            <AlertDialogDescription>
+              האם אתה בטוח שברצונך למחוק את היעד "{city.name}"? 
+              פעולה זו תמחק גם את כל הפריטים ({city.items.length}) הקשורים ליעד זה ולא ניתן לבטלה.
+            </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
                 <AlertDialogCancel>ביטול</AlertDialogCancel>
@@ -140,7 +140,7 @@ export function CityCard({
                   onClick={() => onDeleteCity(city.id)}
                   className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
                 >
-                  מחק עיר
+                  מחק יעד
                 </AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>

@@ -245,7 +245,7 @@ export function TripHeader({ trip, budget }: TripHeaderProps) {
           <div className="flex items-center gap-6 text-sm text-muted-foreground justify-end">
             <div className="flex items-center gap-1">
               <Calendar className="h-4 w-4" />
-              <span>{trip.cities.length} ערים</span>
+                             <span>{trip.cities.length} יעדים</span>
             </div>
             <div className="flex items-center gap-1">
               <MapPin className="h-4 w-4" />

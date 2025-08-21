@@ -59,7 +59,7 @@ export function CreateTripDialog({ onCreateTrip }: CreateTripDialogProps) {
       
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>צור טיול חדש</DialogTitle>
+          <DialogTitle>צור חופשה חדשה</DialogTitle>
         </DialogHeader>
         
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -120,7 +120,7 @@ export function CreateTripDialog({ onCreateTrip }: CreateTripDialogProps) {
               ביטול
             </Button>
             <Button type="submit">
-              צור טיול
+              צור חופשה
             </Button>
           </div>
         </form>
