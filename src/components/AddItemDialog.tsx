@@ -254,7 +254,7 @@ export function AddItemDialog({ open, onOpenChange, onAddItem, editItem, existin
           </div>
           
           <div className="space-y-2">
-            <Label htmlFor="paidAmount">סכום שולם (אופציונלי)</Label>
+            <Label htmlFor="paidAmount">סכום ששולם (אופציונלי)</Label>
             <Input
               id="paidAmount"
               type="number"
@@ -362,7 +362,7 @@ export function AddItemDialog({ open, onOpenChange, onAddItem, editItem, existin
               checked={paid}
               onCheckedChange={handlePaidChange}
             />
-            <Label htmlFor="paid">כבר שולם</Label>
+            <Label htmlFor="paid">תשלום הושלם</Label>
           </div>
           
           <div className="flex justify-end gap-3 pt-4">
