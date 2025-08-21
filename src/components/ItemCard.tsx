@@ -24,6 +24,21 @@ const ITEM_ICONS = {
 export function ItemCard({ item, currency, onEdit, onDelete, onTogglePaid }: ItemCardProps) {
   const Icon = ITEM_ICONS[item.type];
   
+  // Calculate price per night for hotels
+  const calculatePricePerNight = () => {
+    if (item.type !== 'hotel' || !item.dateTo) return null;
+    
+    const startDate = new Date(item.dateFrom);
+    const endDate = new Date(item.dateTo);
+    const nights = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
+    
+    if (nights <= 0) return null;
+    
+    return item.price / nights;
+  };
+  
+  const pricePerNight = calculatePricePerNight();
+  
   return (
     <Card className="p-4">
       <div className="flex items-center gap-3">
@@ -37,6 +52,11 @@ export function ItemCard({ item, currency, onEdit, onDelete, onTogglePaid }: Ite
             {item.provider && (
               <Badge variant="outline" className="text-xs">
                 {item.provider}
+              </Badge>
+            )}
+            {pricePerNight && (
+              <Badge variant="secondary" className="text-xs bg-blue-100 text-blue-800">
+                {formatCurrency(pricePerNight, currency)} ללילה
               </Badge>
             )}
           </div>
