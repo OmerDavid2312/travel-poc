@@ -110,7 +110,20 @@ export function TripHeader({ trip, budget }: TripHeaderProps) {
   const copyToClipboard = async (format: 'text' | 'json' | 'csv') => {
     try {
       setIsExporting(true);
-      const data = formatTripForExport(format);
+      let data: string;
+      
+      if (format === 'json') {
+        // Get raw trip data from localStorage for JSON export
+        const rawTripData = localStorage.getItem(`tripmanager:userless:${trip.id}`);
+        if (rawTripData) {
+          data = rawTripData;
+        } else {
+          throw new Error('Trip data not found');
+        }
+      } else {
+        data = formatTripForExport(format);
+      }
+      
       await navigator.clipboard.writeText(data);
       
       toast({
